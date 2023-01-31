@@ -27,6 +27,18 @@
 | Express API  | ./express-api |
 | React App    | ./react-app   |
 
+### Branching Strategy
+
+This project follows a branching strategy similar to but less stringent than [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow):
+
+- Avoid code commits directly to branch 'main'
+- Avoid code commits directly to branch 'development'
+- Prefer new branches off 'development' for features
+- Feature branches merged into 'development' via pull request when complete
+- 'development' branch merged into 'main' branch via pull request for release
+- Release branch off branch 'main' so bug fixes can be cherry picked or pull requested as needed
+- Delete feature branches after pull request to minimize branch pollution
+
 ### User Experience
 
 - Prompt unauthenticated user to login in absence of Spotify token, retrieving, persisting, and refreshing token upon login
