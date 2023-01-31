@@ -1,2 +1,125 @@
-# clark_david_wdv339
-Project Portfolio III
+# Project Portfolio III
+
+## Student Information
+
+| Item    | Data                |
+| :------ | :------------------ |
+| Name    | David A. Clark, Jr. |
+| Number  | #0004796375         |
+| Class   | WDV339-O            |
+| Term    | C202302             |
+| Section | 01                  |
+
+## Overview
+
+### Selected Technologies
+
+- Front End UI with React
+- Back End Versioned API with Express
+- Back End Storage Peristed in Redis Cache
+- Application Data from Spotify Web API
+
+### Project Organization
+
+| Component    | Directory     |
+| :----------- | :------------ |
+| Project Root | ./            |
+| Express API  | ./express-api |
+| React App    | ./react-app   |
+
+### User Experience
+
+- Prompt unauthenticated user to login in absence of Spotify token, retrieving, persisting, and refreshing token upon login
+- Allow authenticated user to to search Spotify for items of interest, such as artists, albums, and tracks matching supplied criteria
+- Allow authentciated user to navigate to Spotify via search results to view or play selected artist, ablums, or track
+
+### User Interface
+
+- Persistent Header
+  - Conditionally Displayed Search Component
+- Routing to Pages:
+  - Login
+    - Button or Link
+  - No Search Results
+    - Placeholder Text/Image
+  - Search Results
+    - Cards of Albums, Artists, or Tracks
+    - Album, Artist, or Track Fitering Mechanism
+  - Not Found / Error
+    - Root Navigation
+
+## Prerequisites
+
+### Operating System Requirements
+
+Either of--
+
+| OS        | Version       |
+| :-------- | :------------ |
+| GNU/Linux | >= Latest LTS |
+| Mac OS    | 2 (Monterey)  |
+
+### Platform Requirements
+
+All of--
+
+| Component      | Version     |
+| :------------  | :---------- |
+| Docker Engine  | >= 20.10.5  |
+| Docker Compose | >= 1.25.0-1 |
+| Node           | >= 19.3.0   |
+| npm            | >= v9.2.0   |
+
+### Browser Requirements
+
+Any of--
+
+| Browser | Version                    |
+| :------ | :------------------------- |
+| Chrome  | >= Latest 2 Major Versions |
+| Firefox | "                          |
+| Safari  | "                          |
+| Edge    | "                          |
+
+## Considerations
+
+The appliction requires a working internet connection to function.
+
+Ports 3000, 3001, and 6379 must be open on the host machine for the application to function.
+
+To find processes running on any of the aforementioned ports, run the following command, replacing *PORT* with the port number:
+
+> sudo lsof -i :*PORT*
+
+To terminate any processes found in the preceding step, run the following command, replacing *PORT* with the port number:
+
+> sudo fuser -k *PORT*/tcp
+
+## Getting Started
+
+### Project Setup
+
+After cloning the repository, first issue the following commands from a terminal within the Project Root to establish environment variables required by the project.  Be sure to replace *YOUR_CLIENT_ID* and *YOUR_CLIENT_SECRET* with values you have obtained from your Spotify Developer Account.
+
+> echo 'SPOTIFY_CLIENT_ID=*YOUR_CLIENT_ID*' >> .env
+> echo 'SPOTIFY_CLIENT_SECRET=*YOUR_CLIENT_SECRET*' >> .env
+
+Then, issue the following command from a terminal within the Project Root to install all Node project and development dependencies:
+
+> npm i
+
+### Running the Application
+
+Issue the following command from a terminal within the Project Root to start the application:
+
+> npm run dev:react
+
+To halt the application, from a terminal within the Project Root, issue the SIGNINT signal, often mapped to <Ctrl> + <c>.
+
+## Links
+
+| Link                   | Description                                             |
+| :--------------------- | :------------------------------------------------------ |
+| http://localhost:3000  | React Front End UI (Specific Routes to Be Determined)   |
+| http://localhost:3001  | Express Back End API (Specific Routes to Be Determined) |
+| redis://localhost:6379 | Redis Back End Storage Cache                            |
