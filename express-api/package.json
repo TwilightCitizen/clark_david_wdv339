@@ -1,7 +1,6 @@
 {
   "name": "clark_david_wdv339-express_api",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
