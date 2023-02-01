@@ -104,4 +104,6 @@ dist
 .tern-port
 
 # JetBrains IDE files
-./idea
+.idea
+./express-api/.idea
+./react-app/.idea
