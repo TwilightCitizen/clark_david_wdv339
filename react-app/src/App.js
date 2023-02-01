@@ -11,7 +11,9 @@ Project Portfolio III
 
 const App = () => {
   return (
-    <p>Hi! *waves*</p>
+    <div className="flex flex-wrap items-center justify-center vh-100">
+      <p>Hi! *waves*</p>
+    </div>
   );
 }
 
