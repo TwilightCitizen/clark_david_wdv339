@@ -1,17 +1,23 @@
+/*
+David A. Clark, Jr.
+Student #0004796375
+Class WDV339-O
+Term C202302
+Section	01
+Project Portfolio III
+*/
+
+// Library Imports
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+
+// Application Imports
+
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+// Render Application Root
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(<App />);
