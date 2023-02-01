@@ -114,6 +114,7 @@ To terminate any processes found in the preceding step, run the following comman
 After cloning the repository, first issue the following commands from a terminal within the Project Root to establish environment variables required by the project.  Be sure to replace *YOUR_CLIENT_ID* and *YOUR_CLIENT_SECRET* with values you have obtained from your Spotify Developer Account.
 
 > echo 'SPOTIFY_CLIENT_ID=*YOUR_CLIENT_ID*' >> .env
+> 
 > echo 'SPOTIFY_CLIENT_SECRET=*YOUR_CLIENT_SECRET*' >> .env
 
 Then, issue the following command from a terminal within the Project Root to install all Node project and development dependencies:
