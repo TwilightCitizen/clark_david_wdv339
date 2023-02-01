@@ -3,7 +3,7 @@
 ## Student Information
 
 | Item    | Data                |
-| :------ | :------------------ |
+|:--------|:--------------------|
 | Name    | David A. Clark, Jr. |
 | Number  | #0004796375         |
 | Class   | WDV339-O            |
@@ -16,13 +16,15 @@
 
 - Front End UI with React
 - Back End Versioned API with Express
-- Back End Storage Peristed in Redis Cache
+- Back End Storage Persisted in Redis Cache
 - Application Data from Spotify Web API
 
 ### Project Organization
 
+It is important to understand the project organization.  Issuing commands from within the incorrect directory will yield unexpected results.
+
 | Component    | Directory     |
-| :----------- | :------------ |
+|:-------------|:--------------|
 | Project Root | ./            |
 | Express API  | ./express-api |
 | React App    | ./react-app   |
@@ -36,14 +38,14 @@ This project follows a branching strategy similar to but less stringent than [Gi
 - Prefer new branches off 'development' for features
 - Feature branches merged into 'development' via pull request when complete
 - 'development' branch merged into 'main' branch via pull request for release
-- Release branch off branch 'main' so bug fixes can be cherry picked or pull requested as needed
+- Release branch off branch 'main' so bug fixes can be cherry-picked or pull requested as needed
 - Delete feature branches after pull request to minimize branch pollution
 
 ### User Experience
 
 - Prompt unauthenticated user to login in absence of Spotify token, retrieving, persisting, and refreshing token upon login
-- Allow authenticated user to to search Spotify for items of interest, such as artists, albums, and tracks matching supplied criteria
-- Allow authentciated user to navigate to Spotify via search results to view or play selected artist, ablums, or track
+- Allow authenticated user to search Spotify for items of interest, such as artists, albums, and tracks matching supplied criteria
+- Allow authenticated user to navigate to Spotify via search results to view or play selected artist, albums, or track
 
 ### User Interface
 
@@ -56,7 +58,7 @@ This project follows a branching strategy similar to but less stringent than [Gi
     - Placeholder Text/Image
   - Search Results
     - Cards of Albums, Artists, or Tracks
-    - Album, Artist, or Track Fitering Mechanism
+    - Album, Artist, or Track Filtering Mechanism
   - Not Found / Error
     - Root Navigation
 
@@ -67,7 +69,7 @@ This project follows a branching strategy similar to but less stringent than [Gi
 Either of--
 
 | OS        | Version       |
-| :-------- | :------------ |
+|:----------|:--------------|
 | GNU/Linux | >= Latest LTS |
 | Mac OS    | 2 (Monterey)  |
 
@@ -76,7 +78,7 @@ Either of--
 All of--
 
 | Component      | Version     |
-| :------------  | :---------- |
+|:---------------|:------------|
 | Docker Engine  | >= 20.10.5  |
 | Docker Compose | >= 1.25.0-1 |
 | Node           | >= 19.3.0   |
@@ -87,7 +89,7 @@ All of--
 Any of--
 
 | Browser | Version                    |
-| :------ | :------------------------- |
+|:--------|:---------------------------|
 | Chrome  | >= Latest 2 Major Versions |
 | Firefox | "                          |
 | Safari  | "                          |
@@ -95,15 +97,15 @@ Any of--
 
 ## Considerations
 
-The appliction requires a working internet connection to function.
+The application requires a working internet connection to function.
 
 Ports 3000, 3001, and 6379 must be open on the host machine for the application to function.
 
-To find processes running on any of the aforementioned ports, run the following command, replacing *PORT* with the port number:
+To find processes running on any of the aforementioned ports, run the following command from a terminal, replacing *PORT* with the port number:
 
 > sudo lsof -i :*PORT*
 
-To terminate any processes found in the preceding step, run the following command, replacing *PORT* with the port number:
+To terminate any processes found in the preceding step, run the following command from a terminal, replacing *PORT* with the port number:
 
 > sudo fuser -k *PORT*/tcp
 
@@ -111,28 +113,28 @@ To terminate any processes found in the preceding step, run the following comman
 
 ### Project Setup
 
-After cloning the repository, first issue the following commands from a terminal within the Project Root to establish environment variables required by the project.  Be sure to replace *YOUR_CLIENT_ID* and *YOUR_CLIENT_SECRET* with values you have obtained from your Spotify Developer Account.
+After cloning the repository, first issue the following commands from a terminal within the *Express API* directory to establish environment variables required by the server.  Be sure to replace *YOUR_CLIENT_ID* and *YOUR_CLIENT_SECRET* with values you have obtained from your own Spotify Developer Account.
 
 > echo 'SPOTIFY_CLIENT_ID=*YOUR_CLIENT_ID*' >> .env
 > 
 > echo 'SPOTIFY_CLIENT_SECRET=*YOUR_CLIENT_SECRET*' >> .env
 
-Then, issue the following command from a terminal within the Project Root to install all Node project and development dependencies:
+Then, issue the following command from a terminal within the *Project Root* to install all Node project and development dependencies:
 
 > npm i
 
 ### Running the Application
 
-Issue the following command from a terminal within the Project Root to start the application:
+Issue the following command from a terminal within the *Project Root* to start the application:
 
 > npm run dev:react
 
-To halt the application, from a terminal within the Project Root, issue the SIGNINT signal, often mapped to <Ctrl> + <c>.
+To halt the application, from a terminal within the *Project Root*, issue the SIGNINT signal, often mapped to <Ctrl> + <c>.
 
 ## Links
 
 | Link                   | Description                                             |
-| :--------------------- | :------------------------------------------------------ |
+|:-----------------------|:--------------------------------------------------------|
 | http://localhost:3000  | React Front End UI (Specific Routes to Be Determined)   |
 | http://localhost:3001  | Express Back End API (Specific Routes to Be Determined) |
 | redis://localhost:6379 | Redis Back End Storage Cache                            |
