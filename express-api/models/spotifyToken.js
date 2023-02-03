@@ -19,8 +19,6 @@ const {
 
 class SpotifyToken extends Entity {
   get isValid() {
-    console.log(this.expires_in);
-    console.log(new Date().getTime());
     return this.expires_in > new Date().getTime();
   }
 }
