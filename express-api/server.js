@@ -36,7 +36,6 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 server.use(morgan('combined'));
-
 server.use(`${API_BASE_URL}${SPOTIFY_URL}`, spotify);
 server.use(error);
 
