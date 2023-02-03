@@ -14,12 +14,20 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
 
+// Application Imports
+
+const spotify = require('./routes/spotify');
+const error = require('./routes/error');
+
 // Environment Configuration
 
 dotenv.config();
 
-const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
-const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
+const {
+  SPOTIFY_URL,
+  API_PORT,
+  API_BASE_URL
+} = process.env;
 
 // Server Configuration
 
@@ -28,19 +36,12 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 server.use(morgan('combined'));
-
-server.use('*', (req, res, next) => {
-  res
-    .status(200)
-    .json({
-      spotifyClientId: SPOTIFY_CLIENT_ID,
-      spotifyClientSecret: SPOTIFY_CLIENT_SECRET
-    });
-});
+server.use(`${API_BASE_URL}${SPOTIFY_URL}`, spotify);
+server.use(error);
 
 // Server Invocation
 
-server.listen(3001);
+server.listen(API_PORT);
 
 // Exports
 

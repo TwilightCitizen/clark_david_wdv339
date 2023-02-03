@@ -115,9 +115,9 @@ To terminate any processes found in the preceding step, run the following comman
 
 After cloning the repository, first issue the following commands from a terminal within the *Express API* directory to establish environment variables required by the server.  Be sure to replace *YOUR_CLIENT_ID* and *YOUR_CLIENT_SECRET* with values you have obtained from your own Spotify Developer Account.
 
-> echo 'SPOTIFY_CLIENT_ID=*YOUR_CLIENT_ID*' >> .env
+> sed -i -e 's/your_spotify_client_id/*YOUR_SPOTIFY_CLIENT_ID*/g' .env
 > 
-> echo 'SPOTIFY_CLIENT_SECRET=*YOUR_CLIENT_SECRET*' >> .env
+> sed -i -e 's/your_spotify_client_secret/*YOUR_SPOTIFY_CLIENT_SECRET*/g' .env
 
 Then, issue the following command from a terminal within the *Project Root* to install all Node project and development dependencies:
 
@@ -133,8 +133,14 @@ To halt the application, from a terminal within the *Project Root*, issue the SI
 
 ## Links
 
-| Link                   | Description                                             |
-|:-----------------------|:--------------------------------------------------------|
-| http://localhost:3000  | React Front End UI (Specific Routes to Be Determined)   |
-| http://localhost:3001  | Express Back End API (Specific Routes to Be Determined) |
-| redis://localhost:6379 | Redis Back End Storage Cache                            |
+| Link                                        | Description                                                  |
+|:--------------------------------------------|:-------------------------------------------------------------|
+| http://localhost:3000                       | React Front End UI (Specific Routes to Be Determined)        |
+| http://localhost:3001                       | Express Back End                                             |
+| http://localhost:3001/api/v1                | Express Back End API Routes Base URL                         |
+| http://localhost:3001/api/v1/spotify        | Express Back End API Routes for Spotify Application          |
+| http://localhost:3001/api/v1/spotify/login  | Spotify Application API Route for Obtaining a New Auth Token |
+| http://localhost:3001/api/v1/spotify/auth   | Spotify Application API Route for Redirect after Login       |
+| http://localhost:3001/api/v1/spotify/status | Spotify Application API Route for Validity of Token          |
+| http://localhost:3001/api/v1/spotify/search | Spotify Application API Route for Search Results             |
+| redis://localhost:6379                      | Redis Back End Storage Cache                                 |
