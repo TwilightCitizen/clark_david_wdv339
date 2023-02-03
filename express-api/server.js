@@ -42,15 +42,20 @@ server.use(express.json());
 server.use(morgan('combined'));
 
 server.use(`${API_BASE_URL}${SPOTIFY_URL}`, spotify);
-console.log(`${API_BASE_URL}${SPOTIFY_URL}`);
-server.use('/', (req, res, next) => {
+
+server.use('*', (req, res, next) => {
+  const error = new Error();
+  
+  error.status = 404;
+  error.message = 'Not Found';
+  
+  next(error);
+});
+
+server.use((error, req, res, next) => {
   res
-    .status(200)
-    
-    .json({
-      SPOTIFY_CLIENT_ID,
-      SPOTIFY_CLIENT_SECRET
-    });
+    .status(error.status || 500)
+    .json({ message: error.message });
 });
 
 // Server Invocation
