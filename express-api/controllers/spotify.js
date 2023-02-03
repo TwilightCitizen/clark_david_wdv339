@@ -9,7 +9,18 @@ Project Portfolio III
 
 // Library Imports
 
+const path = require('path');
+const dotenv = require('dotenv');
 
+// Environment Configuration
+
+dotenv.config({ path: path.join(__dirname, '../.env.local')});
+dotenv.config();
+
+const {
+  SPOTIFY_CLIENT_ID,
+  SPOTIFY_CLIENT_SECRET
+} = process.env;
 
 // Definitions
 
