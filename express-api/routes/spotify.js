@@ -12,27 +12,22 @@ Project Portfolio III
 const express = require('express');
 const spotify = express.Router();
 
+// Application Imports
+
+const {
+  token,
+  login,
+  auth,
+  status,
+  search
+} = require('../controllers/spotify');
+
 // Definitions
 
-spotify.get('/login', (req, res, next) => {
-  res.status(200).json({ message: 'login' });
-});
-
-spotify.get('/auth', (req, res, next) => {
-  res.status(200).json({ message: 'auth' });
-});
-
-spotify.get('/token', (req, res, next) => {
-  res.status(200).json({ message: 'token' });
-});
-
-spotify.get('/status', (req, res, next) => {
-  res.status(200).json({ message: 'status' });
-});
-
-spotify.get('/search', (req, res, next) => {
-  res.status(200).json({ message: 'search' });
-});
+spotify.get('/login', login);
+spotify.get('/auth', token, auth);
+spotify.get('/status', token, status);
+spotify.get('/search', token, search);
 
 // Exports
 
