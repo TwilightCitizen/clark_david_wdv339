@@ -22,12 +22,7 @@ const spotify = require('./routes/spotify');
 
 dotenv.config();
 
-// const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
-// const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
-
 const {
-  SPOTIFY_CLIENT_ID,
-  SPOTIFY_CLIENT_SECRET,
   SPOTIFY_URL,
   API_PORT,
   API_BASE_URL
