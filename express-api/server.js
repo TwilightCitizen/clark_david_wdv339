@@ -17,6 +17,7 @@ const morgan = require('morgan');
 // Application Imports
 
 const spotify = require('./routes/spotify');
+const error = require('./routes/error');
 
 // Environment Configuration
 
@@ -37,21 +38,7 @@ server.use(express.json());
 server.use(morgan('combined'));
 
 server.use(`${API_BASE_URL}${SPOTIFY_URL}`, spotify);
-
-server.use('*', (req, res, next) => {
-  const error = new Error();
-  
-  error.status = 404;
-  error.message = 'Not Found';
-  
-  next(error);
-});
-
-server.use((error, req, res, next) => {
-  res
-    .status(error.status || 500)
-    .json({ message: error.message });
-});
+server.use(error);
 
 // Server Invocation
 
