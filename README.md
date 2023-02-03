@@ -115,9 +115,9 @@ To terminate any processes found in the preceding step, run the following comman
 
 After cloning the repository, first issue the following commands from a terminal within the *Express API* directory to establish environment variables required by the server.  Be sure to replace *YOUR_CLIENT_ID* and *YOUR_CLIENT_SECRET* with values you have obtained from your own Spotify Developer Account.
 
-> echo 'SPOTIFY_CLIENT_ID=*YOUR_CLIENT_ID*' >> .env
+> sed -i -e 's/your_spotify_client_id/*YOUR_SPOTIFY_CLIENT_ID*/g' .env
 > 
-> echo 'SPOTIFY_CLIENT_SECRET=*YOUR_CLIENT_SECRET*' >> .env
+> sed -i -e 's/your_spotify_client_secret/*YOUR_SPOTIFY_CLIENT_SECRET*/g' .env
 
 Then, issue the following command from a terminal within the *Project Root* to install all Node project and development dependencies:
 
