@@ -36,4 +36,4 @@ spotify.get('/search', (req, res, next) => {
 
 // Exports
 
-module.exports = spotify
+module.exports = spotify;
