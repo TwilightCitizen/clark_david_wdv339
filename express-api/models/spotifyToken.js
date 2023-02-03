@@ -9,11 +9,23 @@ Project Portfolio III
 
 // Library Imports
 
+const dotenv = require('dotenv');
+
 const {
   Entity,
   Schema,
   Client
 } = require('redis-om');
+
+// Environment Configuration
+
+dotenv.config();
+
+const {
+  REDIS_SCHEME,
+  REDIS_HOST,
+  REDIS_PORT
+} = process.env;
 
 // Definitions
 
@@ -34,5 +46,5 @@ const client = new Client();
 
 // Exports
 module.exports = client
-  .open('redis://127.0.0.1:6379')
+  .open(`${REDIS_SCHEME}://${REDIS_HOST}:${REDIS_PORT}`)
   .then(client => client.fetchRepository(schema));
