@@ -27,11 +27,11 @@ spotify.get('/token', (req, res, next) => {
 });
 
 spotify.get('/status', (req, res, next) => {
-  res.status(200).json({ message: 'token' });
+  res.status(200).json({ message: 'status' });
 });
 
 spotify.get('/search', (req, res, next) => {
-  res.status(200).json('search');
+  res.status(200).json({ message: 'search' });
 });
 
 // Exports
