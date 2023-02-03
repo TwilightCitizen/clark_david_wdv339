@@ -133,8 +133,15 @@ To halt the application, from a terminal within the *Project Root*, issue the SI
 
 ## Links
 
-| Link                   | Description                                             |
-|:-----------------------|:--------------------------------------------------------|
-| http://localhost:3000  | React Front End UI (Specific Routes to Be Determined)   |
-| http://localhost:3001  | Express Back End API (Specific Routes to Be Determined) |
-| redis://localhost:6379 | Redis Back End Storage Cache                            |
+| Link                                        | Description                                                  |
+|:--------------------------------------------|:-------------------------------------------------------------|
+| http://localhost:3000                       | React Front End UI (Specific Routes to Be Determined)        |
+| http://localhost:3001                       | Express Back End                                             |
+| http://localhost:3001/api/v1                | Express Back End API Routes Base URL                         |
+| http://localhost:3001/api/v1/spotify        | Express Back End API Routes for Spotify Application          |
+| http://localhost:3001/api/v1/spotify/login  | Spotify Application API Route for Obtaining a New Auth Token |
+| http://localhost:3001/api/v1/spotify/auth   | Spotify Application API Route for Redirect after Login       |
+| http://localhost:3001/api/v1/spotify/token  | Spotify Application API Route for Retrieving Persisted Token |
+| http://localhost:3001/api/v1/spotify/status | Spotify Application API Route for Validity of Token          |
+| http://localhost:3001/api/v1/spotify/search | Spotify Application API Route for Search Results             |
+| redis://localhost:6379                      | Redis Back End Storage Cache                                 |
