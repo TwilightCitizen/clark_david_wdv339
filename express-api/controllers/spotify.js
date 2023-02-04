@@ -11,6 +11,9 @@ Project Portfolio III
 
 import path from 'path';
 import dotenv from 'dotenv';
+import fetch from 'node-fetch';
+import queryString from 'query-string';
+import { randomBytes } from 'crypto';
 
 // Application Imports
 
@@ -23,8 +26,13 @@ dotenv.config();
 const local = dotenv.config({ path: path.resolve(process.cwd(), './.env.local') });
 
 const {
+  API_SCHEME,
+  API_HOST,
+  API_PORT,
+  API_BASE_URL,
   SPOTIFY_CLIENT_ID,
   SPOTIFY_CLIENT_SECRET,
+  SPOTIFY_URL
 } = {
   ...process.env,
   ...local.parsed
@@ -34,45 +42,156 @@ const {
 
 let spotifyTokenID;
 
-const token = async (req, res, next) => {
+const millisInSeconds = 10; // 1000 // Artificially Shortened
+
+const authPayload = new Buffer
+  .from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`)
+  .toString('base64');
+
+const redirectUrl = [
+  API_SCHEME, '://',
+  API_HOST, ':',
+  API_PORT,
+  API_BASE_URL,
+  SPOTIFY_URL,
+  '/auth'
+].join('');
+
+const authUrl = 'https://accounts.spotify.com/authorize';
+const tokenUrl = 'https://accounts.spotify.com/api/token';
+
+const fetchOptions = {
+  method: 'post',
+  
+  headers: {
+    'Authorization': `Basic ${authPayload}`,
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+};
+
+const bodyForToken = code => queryString.stringify({
+  grant_type: 'authorization_code',
+  code: code,
+  redirect_uri: redirectUrl
+});
+
+const bodyForRefresh = refreshToken => queryString.stringify({
+  grant_type: 'refresh_token',
+  refresh_token: refreshToken
+});
+
+const fetchToken = body => {
+  return fetch(tokenUrl, {
+    ...fetchOptions,
+    body: body
+  })
+  
+  .then(res => res.json())
+  
+  .then(spotifyToken => {
+    spotifyToken.expires_in = Date.now() + (
+      spotifyToken.expires_in * millisInSeconds
+    );
+    
+    return spotifyTokenRepository.createAndSave(spotifyToken);
+  })
+  
+  .then(spotifyToken => {
+    spotifyTokenID = spotifyToken.entityId;
+    
+    return spotifyToken;
+  })
+  
+  .catch(error => {
+    console.error(error);
+    
+    return false;
+  })
+};
+
+const isValid = spotifyToken =>
+  spotifyToken?.expires_in > Date.now() || false
+
+const token = (req, res, next) => {
+  const code = req.query.code;
+  
   spotifyTokenRepository
     .fetch(spotifyTokenID)
     
     .then(spotifyToken => {
-      req.token = spotifyToken
+      if (!spotifyToken.entityId && !code) {
+        console.log('Not Logged In');
+        
+        return {};
+      }
+      
+      if (spotifyToken.entityId && isValid(spotifyToken)) {
+        console.log('Found Valid Token');
+        
+        return spotifyToken;
+      }
+      
+      if(!spotifyToken.entityId && code) {
+        console.log('Need First Token');
   
+        return fetchToken(bodyForToken(code))
+          .then(spotifyToken => {
+            return spotifyToken;
+          });
+      }
+      
+      if(spotifyToken.entityId && !isValid(spotifyToken)) {
+        console.log('Need Refresh Token');
+  
+        return fetchToken(bodyForRefresh(spotifyToken.refresh_token))
+          .then(spotifyToken => {
+            return spotifyToken;
+          });
+      }
+    })
+    
+    .then(spotifyToken => {
+      if (!spotifyToken) throw new Error('Error Requesting Spotify Token');
+      
+      req.token = spotifyToken;
+      
       next();
-    });
+    })
+  
+    .catch(error => next(error));
 };
 
 const login = (req, res, next) => {
-  const spotifyToken = spotifyTokenRepository.createEntity({
-    access_token: 'Access Token',
-    token_type: 'Token Type',
-    expires_in: new Date().getTime() + 10000, // 10 seconds later
-    refresh_token: 'Refresh Token',
-  })
-  
-  spotifyTokenRepository
-    .save(spotifyToken)
-    
-    .then(id => {
-      spotifyTokenID = id;
-      
-      res.status(200).json({ message: 'login' });
-    });
+  const query = queryString.stringify({
+    client_id: SPOTIFY_CLIENT_ID,
+    response_type: 'code',
+    redirect_uri: redirectUrl,
+    state: randomBytes(16).toString('hex')
+  });
+
+  res.redirect(`${authUrl}?${query}`);
 };
 
 const auth = (req, res, next) => {
-  res.status(200).json({ message: 'auth', token: req.token });
+  res.status(200).json({
+    message: 'auth',
+    token: req.token
+  });
 };
 
 const status = (req, res, next) => {
-  res.status(200).json({ valid: req.token.isValid });
+  console.log(req.token.expires_in)
+  console.log(Date.now())
+  res.status(200).json({
+    valid: isValid(req.token)
+  });
 };
 
 const search = (req, res, next) => {
-  res.status(200).json({ message: 'search', ...req.token });
+  res.status(200).json({
+    message: 'search',
+    token: req.token
+  });
 }
 
 // Exports
