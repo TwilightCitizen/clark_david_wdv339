@@ -9,8 +9,6 @@ Project Portfolio III
 
 // Library Imports
 
-// const express = require('express');
-
 import express from 'express';
 
 // Definitions
@@ -33,7 +31,5 @@ error.use((error, req, res, next) => {
 });
 
 // Exports
-
-// module.exports = error;
 
 export default error;

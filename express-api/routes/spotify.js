@@ -16,14 +16,6 @@ import express from 'express';
 
 // Application Imports
 
-// const {
-//   token,
-//   login,
-//   auth,
-//   status,
-//   search
-// } = require('../controllers/spotify');
-
 import {
   token,
   login,
@@ -42,7 +34,5 @@ spotify.get('/status', token, status);
 spotify.get('/search', token, search);
 
 // Exports
-
-// module.exports = spotify;
 
 export default spotify;
