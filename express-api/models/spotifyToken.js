@@ -29,11 +29,7 @@ const {
 
 // Definitions
 
-class SpotifyToken extends Entity {
-  get isValid() {
-    return this.expires_in > new Date().getTime();
-  }
-}
+class SpotifyToken extends Entity {}
 
 const schema = new Schema(SpotifyToken, {
   access_token: { type: 'string' },
