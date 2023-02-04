@@ -9,13 +9,21 @@ Project Portfolio III
 
 // Library Imports
 
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
+//
+// const {
+//   Entity,
+//   Schema,
+//   Client
+// } = require('redis-om');
 
-const {
+import dotenv from 'dotenv';
+
+import {
   Entity,
   Schema,
   Client
-} = require('redis-om');
+} from 'redis-om';
 
 // Environment Configuration
 
@@ -44,7 +52,14 @@ const schema = new Schema(SpotifyToken, {
 
 const client = new Client();
 
+await client.open(`${REDIS_SCHEME}://${REDIS_HOST}:${REDIS_PORT}`);
+
+const spotifyTokenRepository = await client.fetchRepository(schema);
+
 // Exports
-module.exports = client
-  .open(`${REDIS_SCHEME}://${REDIS_HOST}:${REDIS_PORT}`)
-  .then(client => client.fetchRepository(schema));
+
+// module.exports = client
+//   .open(`${REDIS_SCHEME}://${REDIS_HOST}:${REDIS_PORT}`)
+//   .then(client => client.fetchRepository(schema));
+
+export default spotifyTokenRepository;
