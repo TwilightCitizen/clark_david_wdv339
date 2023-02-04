@@ -13,6 +13,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 import queryString from 'query-string';
+import { randomBytes } from 'crypto';
 
 // Application Imports
 
@@ -41,11 +42,21 @@ const {
 
 let spotifyTokenID;
 
+const millisInSeconds = 10; // 1000 // Artificially Shortened
+
 const authPayload = new Buffer
   .from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`)
   .toString('base64');
 
-const redirectUrl = `${API_SCHEME}://${API_HOST}:${API_PORT}${API_BASE_URL}${SPOTIFY_URL}/auth`;
+const redirectUrl = [
+  API_SCHEME, '://',
+  API_HOST, ':',
+  API_PORT,
+  API_BASE_URL,
+  SPOTIFY_URL,
+  '/auth'
+].join('');
+
 const authUrl = 'https://accounts.spotify.com/authorize';
 const tokenUrl = 'https://accounts.spotify.com/api/token';
 
@@ -76,12 +87,19 @@ const fetchToken = body => {
   })
   
   .then(res => res.json())
-  .then(spotifyToken => spotifyTokenRepository.save(spotifyToken))
   
-  .then(id => {
-    spotifyTokenID = id;
+  .then(spotifyToken => {
+    spotifyToken.expires_in = Date.now() + (
+      spotifyToken.expires_in * millisInSeconds
+    );
     
-    return true;
+    return spotifyTokenRepository.createAndSave(spotifyToken);
+  })
+  
+  .then(spotifyToken => {
+    spotifyTokenID = spotifyToken.entityId;
+    
+    return spotifyToken;
   })
   
   .catch(error => {
@@ -91,9 +109,56 @@ const fetchToken = body => {
   })
 };
 
-const token = async (req, res, next) => {
-  fetchToken(bodyForToken(req.query.code));
+const isValid = spotifyToken =>
+  spotifyToken?.expires_in > Date.now() || false
+
+const token = (req, res, next) => {
+  const code = req.query.code;
   
+  spotifyTokenRepository
+    .fetch(spotifyTokenID)
+    
+    .then(spotifyToken => {
+      if (!spotifyToken.entityId && !code) {
+        console.log('Not Logged In');
+        
+        return {};
+      }
+      
+      if (spotifyToken.entityId && isValid(spotifyToken)) {
+        console.log('Found Valid Token');
+        
+        return spotifyToken;
+      }
+      
+      if(!spotifyToken.entityId && code) {
+        console.log('Need First Token');
+  
+        return fetchToken(bodyForToken(code))
+          .then(spotifyToken => {
+            return spotifyToken;
+          });
+      }
+      
+      if(spotifyToken.entityId && !isValid(spotifyToken)) {
+        console.log('Need Refresh Token');
+  
+        return fetchToken(bodyForRefresh(spotifyToken.refresh_token))
+          .then(spotifyToken => {
+            return spotifyToken;
+          });
+      }
+    })
+    
+    .then(spotifyToken => {
+      if (!spotifyToken) throw new Error('Error Requesting Spotify Token');
+      
+      req.token = spotifyToken;
+      
+      next();
+    })
+  
+    .catch(error => next(error));
 };
 
 const login = (req, res, next) => {
@@ -101,22 +166,32 @@ const login = (req, res, next) => {
     client_id: SPOTIFY_CLIENT_ID,
     response_type: 'code',
     redirect_uri: redirectUrl,
-    state: 'unimplemented'
+    state: randomBytes(16).toString('hex')
   });
 
   res.redirect(`${authUrl}?${query}`);
 };
 
 const auth = (req, res, next) => {
-  res.status(200).json({ message: 'auth', token: req.token });
+  res.status(200).json({
+    message: 'auth',
+    token: req.token
+  });
 };
 
 const status = (req, res, next) => {
-  res.status(200).json({ valid: req.token.isValid });
+  console.log(req.token.expires_in)
+  console.log(Date.now())
+  res.status(200).json({
+    valid: isValid(req.token)
+  });
 };
 
 const search = (req, res, next) => {
-  res.status(200).json({ message: 'search', ...req.token });
+  res.status(200).json({
+    message: 'search',
+    token: req.token
+  });
 }
 
 // Exports
