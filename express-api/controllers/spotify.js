@@ -31,6 +31,7 @@ const {
   API_BASE_URL,
   SPOTIFY_CLIENT_ID,
   SPOTIFY_CLIENT_SECRET,
+  SPOTIFY_URL
 } = {
   ...process.env,
   ...local.parsed
@@ -44,7 +45,7 @@ const authPayload = new Buffer
   .from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`)
   .toString('base64');
 
-const redirectUrl = `${API_SCHEME}://${API_HOST}:${API_PORT}${API_BASE_URL}/auth`;
+const redirectUrl = `${API_SCHEME}://${API_HOST}:${API_PORT}${API_BASE_URL}${SPOTIFY_URL}/auth`;
 const authUrl = 'https://accounts.spotify.com/authorize';
 const tokenUrl = 'https://accounts.spotify.com/api/token';
 
@@ -57,49 +58,52 @@ const fetchOptions = {
   }
 };
 
-const fetchAuthorize = () => {
+const bodyForToken = code => queryString.stringify({
+  grant_type: 'authorization_code',
+  code: code,
+  redirect_uri: redirectUrl
+});
 
-};
+const bodyForRefresh = refreshToken => queryString.stringify({
+  grant_type: 'refresh_token',
+  refresh_token: refreshToken
+});
 
-const fetchToken = () => {
-
+const fetchToken = body => {
+  return fetch(tokenUrl, {
+    ...fetchOptions,
+    body: body
+  })
+  
+  .then(res => res.json())
+  .then(spotifyToken => spotifyTokenRepository.save(spotifyToken))
+  
+  .then(id => {
+    spotifyTokenID = id;
+    
+    return true;
+  })
+  
+  .catch(error => {
+    console.error(error);
+    
+    return false;
+  })
 };
 
 const token = async (req, res, next) => {
-  spotifyTokenRepository
-    .fetch(spotifyTokenID)
-    
-    .then(spotifyToken => {
-      req.token = spotifyToken
+  fetchToken(bodyForToken(req.query.code));
   
-      next();
-    });
 };
 
 const login = (req, res, next) => {
-  // const spotifyToken = spotifyTokenRepository.createEntity({
-  //   access_token: 'Access Token',
-  //   token_type: 'Token Type',
-  //   expires_in: new Date().getTime() + 10000, // 10 seconds later
-  //   refresh_token: 'Refresh Token',
-  // })
-  //
-  // spotifyTokenRepository
-  //   .save(spotifyToken)
-  //
-  //   .then(id => {
-  //     spotifyTokenID = id;
-  //
-  //     res.status(200).json({ message: 'login' });
-  //   });
-  
   const query = queryString.stringify({
     client_id: SPOTIFY_CLIENT_ID,
     response_type: 'code',
     redirect_uri: redirectUrl,
     state: 'unimplemented'
   });
-  
+
   res.redirect(`${authUrl}?${query}`);
 };
 
