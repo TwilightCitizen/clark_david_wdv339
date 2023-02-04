@@ -9,10 +9,11 @@ Project Portfolio III
 
 // Library Imports
 
-const express = require('express');
-const error = express.Router();
+import express from 'express';
 
 // Definitions
+
+const error = express.Router();
 
 error.use('*', (req, res, next) => {
   const error = new Error();
@@ -31,4 +32,4 @@ error.use((error, req, res, next) => {
 
 // Exports
 
-module.exports = error;
+export default error;

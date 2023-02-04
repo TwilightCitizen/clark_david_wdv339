@@ -9,20 +9,24 @@ Project Portfolio III
 
 // Library Imports
 
-const express = require('express');
-const spotify = express.Router();
+// const express = require('express');
+// const spotify = express.Router();
+
+import express from 'express';
 
 // Application Imports
 
-const {
+import {
   token,
   login,
   auth,
   status,
   search
-} = require('../controllers/spotify');
+} from '../controllers/spotify.js'
 
 // Definitions
+
+const spotify = express.Router();
 
 spotify.get('/login', login);
 spotify.get('/auth', token, auth);
@@ -31,4 +35,4 @@ spotify.get('/search', token, search);
 
 // Exports
 
-module.exports = spotify;
+export default spotify;

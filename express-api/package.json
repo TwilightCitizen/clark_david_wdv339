@@ -2,6 +2,7 @@
   "name": "clark_david_wdv339-express_api",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
     "predev": "docker-compose up -d",

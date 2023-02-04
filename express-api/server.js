@@ -9,15 +9,15 @@ Project Portfolio III
 
 // Library Imports
 
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const morgan = require('morgan');
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import morgan from 'morgan';
 
 // Application Imports
 
-const spotify = require('./routes/spotify');
-const error = require('./routes/error');
+import spotify from './routes/spotify.js';
+import error from './routes/error.js';
 
 // Environment Configuration
 
