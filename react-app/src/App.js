@@ -14,7 +14,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Application Imports
 
-import ProtectedRoute from './components/ProtectedRoute';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import SearchResults from './pages/SearchResults';
@@ -23,11 +22,6 @@ import SearchResults from './pages/SearchResults';
 
 const LoggedInContext = createContext(null);
 const SearchResultsContext = createContext(null);
-
-const ProtectedSearchResults = () =>
-  <ProtectedRoute>
-    <SearchResults />
-  </ProtectedRoute>
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -39,8 +33,8 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/search-results" element={<ProtectedSearchResults />} />
-            <Route path="/" exact element={<ProtectedSearchResults />} />
+            <Route path="/search-results" element={<SearchResults />} />
+            <Route path="/" exact element={<SearchResults />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
