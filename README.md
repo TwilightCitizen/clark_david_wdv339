@@ -119,6 +119,14 @@ After cloning the repository, first issue the following commands from a terminal
 > 
 > sed -i -e 's/your_spotify_client_secret/*YOUR_SPOTIFY_CLIENT_SECRET*/g' .env
 
+Alternatively, you can override these variables by establishing them in a local environment file.  To do this, issue the following alternate commands from a terminal within the *Express API* directory.  Note that you do not have to establish a local environment file if you have already established your own values in the provided environment file with the preceding commands.
+
+> touch .env.local
+> 
+> echo 'SPOTIFY_CLIENT_ID=*YOUR_SPOTIFY_CLIENT_ID*' >> .env.local
+> 
+> echo 'SPOTIFY_CLIENT_SECRET=*YOUR_SPOTIFY_CLIENT_SECRET*' >> .env.local
+
 Then, issue the following command from a terminal within the *Project Root* to install all Node project and development dependencies:
 
 > npm i
