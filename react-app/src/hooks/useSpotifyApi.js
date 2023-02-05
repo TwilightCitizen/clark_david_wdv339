@@ -13,30 +13,97 @@ import { useFetch } from 'react-async';
 
 // Environment Configuration
 
-// TODO: Define Environment Variables
+const {
+  REACT_APP_SPOTIFY_URL,
+  REACT_APP_API_SCHEME,
+  REACT_APP_API_HOST,
+  REACT_APP_API_PORT,
+  REACT_APP_API_BASE_URL
+} = process.env;
 
-const API_BASE_URL = '';
 
 // Definitions
+
+const API_URL = [
+  REACT_APP_API_SCHEME, '://',
+  REACT_APP_API_HOST, ':',
+  REACT_APP_API_PORT,
+  REACT_APP_API_BASE_URL,
+  REACT_APP_SPOTIFY_URL,
+].join('');
 
 const accept = { Accept: 'application/json' };
 const getHeaders = { ...accept };
 
 const useSpotifyApi = () => {
   const {
-    data,
-    error,
-    isPending,
-    run,
-    reload
+    data: getLoginData,
+    error: getLoginError,
+    isPending: getLoginIsPending,
+    run: getLoginRun,
+    reload: getLoginReload
   } = useFetch(
-    `${API_BASE_URL}`,
+    `${API_URL}/login`,
     { headers: getHeaders },
     { defer: true }
   );
   
-  return ({
+  const {
+    data: getStatusData,
+    error: getStatusError,
+    isPending: getStatusIsPending,
+    run: getStatusRun,
+    reload: getStatusReload
+  } = useFetch(
+    `${API_URL}/status`,
+    { headers: getHeaders },
+    { defer: true }
+  );
   
+  const {
+    data: getSearchData,
+    error: getSearchError,
+    isPending: getSearchIsPending,
+    run: getSearchRun,
+    reload: getSearchReload
+  } = useFetch(
+    '',
+    { headers: getHeaders },
+    { defer: true }
+  );
+  
+  const getLogin = {
+    getLoginData,
+    getLoginError,
+    getLoginIsPending,
+    getLoginRun,
+    getLoginReload
+  };
+  
+  const getStatus = {
+    getStatusData,
+    getStatusError,
+    getStatusIsPending,
+    getStatusRun,
+    getStatusReload
+  };
+  
+  const getSearch = {
+    getSearchData,
+    getSearchError,
+    getSearchIsPending,
+    
+    getSearchRun: searchTerms => getSearchRun({
+      resource: `${API_URL}/search?q=${encodeURIComponent(searchTerms)}`
+    }),
+    
+    getSearchReload
+  };
+  
+  return ({
+    getLogin,
+    getStatus,
+    getSearch
   });
 };
 
