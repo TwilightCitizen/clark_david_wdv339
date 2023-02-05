@@ -59,8 +59,9 @@ const redirectUrl = [
 
 const authUrl = 'https://accounts.spotify.com/authorize';
 const tokenUrl = 'https://accounts.spotify.com/api/token';
+const searchUrl = 'https://api.spotify.com/v1/search';
 
-const fetchOptions = {
+const tokenOptions = {
   method: 'post',
   
   headers: {
@@ -68,6 +69,21 @@ const fetchOptions = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
 };
+
+const searchOptions = req => ({
+  method: 'get',
+  
+  headers: {
+    'Authorization': 'Bearer ' + req.token.access_token,
+    'Content-Type': 'application/json'
+  }
+});
+
+const searchParams = req => queryString.stringify({
+  type: 'album,artist,track',
+  q: req.query.q,
+  limit: 3
+});
 
 const bodyForToken = code => queryString.stringify({
   grant_type: 'authorization_code',
@@ -82,7 +98,7 @@ const bodyForRefresh = refreshToken => queryString.stringify({
 
 const fetchToken = body => {
   return fetch(tokenUrl, {
-    ...fetchOptions,
+    ...tokenOptions,
     body: body
   })
   
@@ -179,10 +195,13 @@ const status = (req, res, next) =>
   });
 
 const search = (req, res, next) => {
-  res.status(200).json({
-    message: 'search',
-    token: req.token
-  });
+  fetch(`${searchUrl}?${searchParams(req)}`, {
+    ...searchOptions(req),
+  })
+  
+  .then(res => res.json())
+  .then(json => res.status(200).json(json))
+  .catch(error => next(error));
 }
 
 // Exports
