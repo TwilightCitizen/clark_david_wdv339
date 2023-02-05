@@ -27,5 +27,5 @@ const SearchResults = () => {
 // Exports
 
 export default WithLayout(
-  WithLoggedInRedirect(SearchResults, false, 'login')
+  WithLoggedInRedirect(SearchResults, false, '/login')
 );
