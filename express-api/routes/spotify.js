@@ -9,9 +9,6 @@ Project Portfolio III
 
 // Library Imports
 
-// const express = require('express');
-// const spotify = express.Router();
-
 import express from 'express';
 
 // Application Imports
