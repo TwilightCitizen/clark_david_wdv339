@@ -21,8 +21,8 @@ const WithLoggedInRedirect = (
   Page, whenLoggedInIs, navigateTo
 ) => props =>
   <LoggedInContext.Consumer>
-    {value =>
-      value === whenLoggedInIs
+    {([loggedIn]) =>
+      loggedIn === whenLoggedInIs
         ? <Navigate to={navigateTo} />
         : <Page {...props} />}
   </LoggedInContext.Consumer>
