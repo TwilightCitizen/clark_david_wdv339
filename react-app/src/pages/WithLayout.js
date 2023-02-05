@@ -7,10 +7,6 @@ Section	01
 Project Portfolio III
 */
 
-// Library Imports
-
-
-
 // Application Imports
 
 import Header from '../components/Header';

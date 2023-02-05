@@ -9,16 +9,16 @@ Project Portfolio III
 
 // Library Imports
 
-import { useContext } from 'react';
+// import { useContext } from 'react';
 
 // Application Imports
 
-import { /* TODO: Context */ } from '../App';
+// import { /* TODO: Context */ } from '../App';
 
 // Definition
 
 const Header = () => {
-  const [context] = useContext(null);
+  //const [context] = useContext(null);
   
   return (
     <header>
