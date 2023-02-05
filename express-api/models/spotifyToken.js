@@ -44,6 +44,8 @@ await client.open(`${REDIS_SCHEME}://${REDIS_HOST}:${REDIS_PORT}`);
 
 const spotifyTokenRepository = await client.fetchRepository(schema);
 
+await spotifyTokenRepository.createIndex();
+
 // Exports
 
 export default spotifyTokenRepository;

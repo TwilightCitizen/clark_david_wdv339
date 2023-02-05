@@ -23,7 +23,9 @@ import spotifyTokenRepository from '../models/spotifyToken.js';
 
 dotenv.config();
 
-const local = dotenv.config({ path: path.resolve(process.cwd(), './.env.local') });
+const local = dotenv.config({
+  path: path.resolve(process.cwd(), './.env.local')
+});
 
 const {
   API_SCHEME,
@@ -39,8 +41,6 @@ const {
 };
 
 // Definitions
-
-let spotifyTokenID;
 
 const millisInSeconds = 10; // 1000 // Artificially Shortened
 
@@ -88,18 +88,29 @@ const fetchToken = body => {
   
   .then(res => res.json())
   
-  .then(spotifyToken => {
-    spotifyToken.expires_in = Date.now() + (
-      spotifyToken.expires_in * millisInSeconds
+  .then(fetched => {
+    fetched.expires_in = Date.now() + (
+      fetched.expires_in * millisInSeconds
     );
     
-    return spotifyTokenRepository.createAndSave(spotifyToken);
+    return Promise.all([
+      spotifyTokenRepository.search().first(),
+      fetched
+    ]);
   })
   
-  .then(spotifyToken => {
-    spotifyTokenID = spotifyToken.entityId;
+  .then(([stored, fetched ]) => {
+    if (stored) {
+      stored.access_token = fetched.access_token;
+      stored.expires_in = fetched.expires_in
+      stored.refresh_token = fetched.refresh_token ?? stored.refresh_token
+      
+      return spotifyTokenRepository
+        .save(stored)
+        .then(() => spotifyTokenRepository.search().first());
+    }
     
-    return spotifyToken;
+    return spotifyTokenRepository.createAndSave(fetched);
   })
   
   .catch(error => {
@@ -110,48 +121,31 @@ const fetchToken = body => {
 };
 
 const isValid = spotifyToken =>
-  spotifyToken?.expires_in > Date.now() || false
+  spotifyToken?.expires_in > Date.now() || false;
 
 const token = (req, res, next) => {
   const code = req.query.code;
   
-  spotifyTokenRepository
-    .fetch(spotifyTokenID)
-    
+  spotifyTokenRepository.search().first()
     .then(spotifyToken => {
-      if (!spotifyToken.entityId && !code) {
-        console.log('Not Logged In');
-        
+      if (!spotifyToken && !code)
         return {};
-      }
       
-      if (spotifyToken.entityId && isValid(spotifyToken)) {
-        console.log('Found Valid Token');
-        
+      if (spotifyToken && isValid(spotifyToken))
         return spotifyToken;
-      }
       
-      if(!spotifyToken.entityId && code) {
-        console.log('Need First Token');
-  
+      if(!spotifyToken && code)
         return fetchToken(bodyForToken(code))
-          .then(spotifyToken => {
-            return spotifyToken;
-          });
-      }
+          .then(spotifyToken => spotifyToken);
       
-      if(spotifyToken.entityId && !isValid(spotifyToken)) {
-        console.log('Need Refresh Token');
-  
+      if(spotifyToken && !isValid(spotifyToken))
         return fetchToken(bodyForRefresh(spotifyToken.refresh_token))
-          .then(spotifyToken => {
-            return spotifyToken;
-          });
-      }
+          .then(spotifyToken => spotifyToken);
     })
     
     .then(spotifyToken => {
-      if (!spotifyToken) throw new Error('Error Requesting Spotify Token');
+      if (!spotifyToken)
+        throw new Error('Error Requesting Spotify Token');
       
       req.token = spotifyToken;
       
@@ -179,13 +173,10 @@ const auth = (req, res, next) => {
   });
 };
 
-const status = (req, res, next) => {
-  console.log(req.token.expires_in)
-  console.log(Date.now())
+const status = (req, res, next) =>
   res.status(200).json({
     valid: isValid(req.token)
   });
-};
 
 const search = (req, res, next) => {
   res.status(200).json({
