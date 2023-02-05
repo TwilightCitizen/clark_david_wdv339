@@ -13,7 +13,8 @@ Project Portfolio III
 
 // Application Imports
 
-
+import WithLoggedInRedirect from './WithLoggedInRedirect';
+import WithLayout from './WithLayout';
 
 // Definition
 
@@ -25,4 +26,6 @@ const SearchResults = () => {
 
 // Exports
 
-export default SearchResults;
+export default WithLayout(
+  WithLoggedInRedirect(SearchResults, false, 'login')
+);
