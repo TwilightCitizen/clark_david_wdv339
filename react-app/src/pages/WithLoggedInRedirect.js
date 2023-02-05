@@ -18,10 +18,10 @@ import { LoggedInContext } from '../App';
 
 // Definition
 
-const WithLoggedInRedirect = (Page, to) => props => {
+const WithLoggedInRedirect = (Page, state, to) => props => {
   const [loggedIn] = useContext(LoggedInContext);
   
-  return loggedIn
+  return loggedIn === state
     ? <Page {...props} />
     : <Navigate to={to} />
 };
