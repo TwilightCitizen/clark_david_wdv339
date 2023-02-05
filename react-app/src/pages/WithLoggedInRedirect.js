@@ -9,7 +9,6 @@ Project Portfolio III
 
 // Library Imports
 
-import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 
 // Application Imports
@@ -18,13 +17,15 @@ import { LoggedInContext } from '../App';
 
 // Definition
 
-const WithLoggedInRedirect = (Page, state, to) => props => {
-  const [loggedIn] = useContext(LoggedInContext);
-  
-  return loggedIn === state
-    ? <Page {...props} />
-    : <Navigate to={to} />
-};
+const WithLoggedInRedirect = (
+  Page, whenLoggedInIs, navigateTo
+) => props =>
+  <LoggedInContext.Consumer>
+    {value =>
+      value === whenLoggedInIs
+        ? <Navigate to={navigateTo} />
+        : <Page {...props} />}
+  </LoggedInContext.Consumer>
 
 // Exports
 
