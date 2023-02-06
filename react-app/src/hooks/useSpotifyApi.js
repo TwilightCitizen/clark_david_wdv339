@@ -37,18 +37,6 @@ const getHeaders = { ...accept };
 
 const useSpotifyApi = () => {
   const {
-    data: getLoginData,
-    error: getLoginError,
-    isPending: getLoginIsPending,
-    run: getLoginRun,
-    reload: getLoginReload
-  } = useFetch(
-    `${API_URL}/login`,
-    { headers: getHeaders },
-    { defer: true }
-  );
-  
-  const {
     data: getStatusData,
     error: getStatusError,
     isPending: getStatusIsPending,
@@ -72,13 +60,7 @@ const useSpotifyApi = () => {
     { defer: true }
   );
   
-  const getLogin = {
-    getLoginData,
-    getLoginError,
-    getLoginIsPending,
-    getLoginRun,
-    getLoginReload
-  };
+  const loginUrl = `${API_URL}/login`
   
   const getStatus = {
     getStatusData,
@@ -101,7 +83,7 @@ const useSpotifyApi = () => {
   };
   
   return ({
-    getLogin,
+    loginUrl,
     getStatus,
     getSearch
   });
