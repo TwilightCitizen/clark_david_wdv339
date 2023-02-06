@@ -26,7 +26,7 @@ const SearchResultsContext = createContext(null);
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [searchResults, setSearchResults] = useState({});
+  const [searchResults, setSearchResults] = useState(null);
   
   const {
     getStatus: {
