@@ -9,20 +9,23 @@ Project Portfolio III
 
 // Library Imports
 
-// import { useContext } from 'react';
+import { useContext } from 'react';
 
 // Application Imports
 
-// import { /* TODO: Context */ } from '../App';
+import { LoggedInContext } from '../App';
+import SearchBar from './SearchBar';
 
 // Definition
 
 const Header = () => {
-  //const [context] = useContext(null);
+  const [loggedIn] = useContext(LoggedInContext);
   
   return (
     <header>
-      <p>Header Component</p>
+      {loggedIn
+        ? <SearchBar />
+        : null}
     </header>
   );
 };
