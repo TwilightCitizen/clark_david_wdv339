@@ -15,6 +15,7 @@ import { useContext } from 'react';
 
 import { LoggedInContext } from '../App';
 import SearchBar from './SearchBar';
+import Logo from './Logo';
 
 // Definition
 
@@ -22,7 +23,11 @@ const Header = () => {
   const [loggedIn] = useContext(LoggedInContext);
   
   return (
-    <header>
+    <header
+      className="bg-dark-green flex flex-row flex-grow-0 items-center pa1 pa2-m pa3-l"
+    >
+      <Logo variant="white" />
+      
       {loggedIn
         ? <SearchBar />
         : null}
