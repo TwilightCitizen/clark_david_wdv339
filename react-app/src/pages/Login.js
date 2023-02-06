@@ -12,7 +12,6 @@ Project Portfolio III
 
 // Application Imports
 
-import WithLoggedInRedirect from './WithLoggedInRedirect';
 import WithLayout from './WithLayout';
 import useSpotifyApi from '../hooks/useSpotifyApi';
 
@@ -28,6 +27,4 @@ const Login = () => {
 
 // Exports
 
-export default WithLayout(
-  WithLoggedInRedirect(Login, true, '/search-results')
-);
+export default WithLayout(Login);
