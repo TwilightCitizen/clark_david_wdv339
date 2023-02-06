@@ -13,7 +13,6 @@ import { useContext } from 'react';
 
 // Application Imports
 
-import WithLoggedInRedirect from './WithLoggedInRedirect';
 import WithLayout from './WithLayout';
 import { SearchResultsContext } from '../App';
 
@@ -34,6 +33,4 @@ const SearchResults = () => {
 
 // Exports
 
-export default WithLayout(
-  WithLoggedInRedirect(SearchResults, false, '/login')
-);
+export default WithLayout(SearchResults);
