@@ -17,7 +17,12 @@ const WithLayout = Page => props => {
   return (
     <>
       <Header />
-      <Page {...props} />
+  
+      <div
+        className="flex flex-column flex-grow-1 pa1 pa2-m pa3-l"
+      >
+        <Page {...props} />
+      </div>
     </>
   );
 };
