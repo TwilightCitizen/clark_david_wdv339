@@ -18,11 +18,28 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import SearchResults from './pages/SearchResults';
 import useSpotifyApi from './hooks/useSpotifyApi';
+import LoggedInManagedRoute from './components/LoggedInManagedRoute';
 
 // Definitions
 
 const LoggedInContext = createContext(null);
 const SearchResultsContext = createContext(null);
+
+const ManagedLogin = () =>
+  <LoggedInManagedRoute
+    whenLoggedInIs={true}
+    navigateTo="/search-results"
+  >
+    <Login />
+  </LoggedInManagedRoute>
+
+const ManagedSearchResults = () =>
+  <LoggedInManagedRoute
+    whenLoggedInIs={false}
+    navigateTo="/login"
+  >
+    <SearchResults />
+  </LoggedInManagedRoute>
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -47,10 +64,10 @@ const App = () => {
       <SearchResultsContext.Provider value={[searchResults, setSearchResults]}>
         <Router>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/search-results" element={<SearchResults />} />
-            <Route path="/" exact element={<SearchResults />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path='/login' element={<ManagedLogin />} />
+            <Route path='/search-results' element={<ManagedSearchResults />} />
+            <Route path='/' exact element={<ManagedSearchResults />} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </Router>
       </SearchResultsContext.Provider>
