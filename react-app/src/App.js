@@ -9,7 +9,7 @@ Project Portfolio III
 
 // Library Imports
 
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Application Imports
@@ -17,6 +17,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import SearchResults from './pages/SearchResults';
+import useSpotifyApi from './hooks/useSpotifyApi';
 
 // Definitions
 
@@ -25,7 +26,21 @@ const SearchResultsContext = createContext(null);
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [searchResults, setSearchResults] = useState({});
+  const [searchResults, setSearchResults] = useState(null);
+  
+  const {
+    getStatus: {
+      getStatusData,
+      getStatusError,
+      getStatusRun
+    }
+  } = useSpotifyApi();
+  
+  useEffect(() => {
+    if (!getStatusData) getStatusRun();
+    if (getStatusData) setLoggedIn(getStatusData.valid);
+    if (getStatusError) setLoggedIn(false);
+  }, [getStatusData, getStatusError]);
   
   return (
     <LoggedInContext.Provider value={[loggedIn, setLoggedIn]}>

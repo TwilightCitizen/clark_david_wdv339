@@ -10,17 +10,19 @@ Project Portfolio III
 // Library Imports
 
 
-
 // Application Imports
 
 import WithLoggedInRedirect from './WithLoggedInRedirect';
 import WithLayout from './WithLayout';
+import useSpotifyApi from '../hooks/useSpotifyApi';
 
 // Definition
 
 const Login = () => {
+  const { loginUrl } = useSpotifyApi();
+  
   return (
-    <p>Login Page</p>
+    <a href={loginUrl}>Login</a>
   );
 };
 

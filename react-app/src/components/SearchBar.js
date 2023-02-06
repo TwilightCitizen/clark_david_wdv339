@@ -9,19 +9,41 @@ Project Portfolio III
 
 // Library Imports
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 // Application Imports
 
-import { /* TODO: Context */ } from '../App';
+import { SearchResultsContext } from '../App';
+import useSpotifyApi from '../hooks/useSpotifyApi';
 
 // Definition
 
 const SearchBar = () => {
-  const [context] = useContext(null);
+  const [, setSearchResults] = useContext(SearchResultsContext);
+  
+  const {
+    getSearch: {
+      getSearchData,
+      getSearchError,
+      getSearchRun
+    }
+  } = useSpotifyApi();
+  
+  useEffect(() => {
+    if (getSearchData) setSearchResults(getSearchData);
+    if (getSearchError) setSearchResults(null);
+  }, [getSearchData, getSearchError]);
   
   return (
-    <p>SearchBar Component</p>
+    <>
+      <p>SearchBar Component</p>
+      
+      <button
+        onClick={() => getSearchRun('Sidewalks and Skeletons')}
+      >
+        Search
+      </button>
+    </>
   );
 };
 

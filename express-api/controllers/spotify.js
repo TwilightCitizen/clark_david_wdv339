@@ -32,6 +32,9 @@ const {
   API_HOST,
   API_PORT,
   API_BASE_URL,
+  APP_SCHEME,
+  APP_HOST,
+  APP_PORT,
   SPOTIFY_CLIENT_ID,
   SPOTIFY_CLIENT_SECRET,
   SPOTIFY_URL
@@ -48,13 +51,19 @@ const authPayload = new Buffer
   .from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`)
   .toString('base64');
 
-const redirectUrl = [
+const serverRedirectUrl = [
   API_SCHEME, '://',
   API_HOST, ':',
   API_PORT,
   API_BASE_URL,
   SPOTIFY_URL,
   '/auth'
+].join('');
+
+const appRedirectUrl = [
+  APP_SCHEME, '://',
+  APP_HOST, ':',
+  APP_PORT,
 ].join('');
 
 const authUrl = 'https://accounts.spotify.com/authorize';
@@ -88,7 +97,7 @@ const searchParams = req => queryString.stringify({
 const bodyForToken = code => queryString.stringify({
   grant_type: 'authorization_code',
   code: code,
-  redirect_uri: redirectUrl
+  redirect_uri: serverRedirectUrl
 });
 
 const bodyForRefresh = refreshToken => queryString.stringify({
@@ -175,19 +184,15 @@ const login = (req, res, next) => {
   const query = queryString.stringify({
     client_id: SPOTIFY_CLIENT_ID,
     response_type: 'code',
-    redirect_uri: redirectUrl,
+    redirect_uri: serverRedirectUrl,
     state: randomBytes(16).toString('hex')
   });
 
   res.redirect(`${authUrl}?${query}`);
 };
 
-const auth = (req, res, next) => {
-  res.status(200).json({
-    message: 'auth',
-    token: req.token
-  });
-};
+const auth = (req, res, next) =>
+  res.redirect(appRedirectUrl);
 
 const status = (req, res, next) =>
   res.status(200).json({
