@@ -9,18 +9,26 @@ Project Portfolio III
 
 // Library Imports
 
-
+import { useContext } from 'react';
 
 // Application Imports
 
 import WithLoggedInRedirect from './WithLoggedInRedirect';
 import WithLayout from './WithLayout';
+import { SearchResultsContext } from '../App';
+
 
 // Definition
 
 const SearchResults = () => {
+  const [searchResults] = useContext(SearchResultsContext)
+  
   return (
-    <p>SearchResults Page</p>
+    <>
+      {searchResults
+        ? <p>{JSON.stringify(searchResults)}</p>
+        : <p>No Results</p>}
+    </>
   );
 };
 
