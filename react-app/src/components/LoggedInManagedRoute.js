@@ -19,12 +19,12 @@ import { LoggedInContext } from '../App';
 // Definition
 
 const LoggedInManagedRoute = ({
-  whenLoggedInIs, navigateTo, children
+  whenLoggedInIs: state, navigateTo: to, children
 }) => {
   const [loggedIn] = useContext(LoggedInContext);
   
-  return loggedIn === whenLoggedInIs
-    ? <Navigate to={navigateTo} /> : children;
+  return loggedIn === state
+    ? <Navigate to={to} /> : children;
 };
 
 // Exports
