@@ -43,7 +43,12 @@ const ManagedSearchResults = () =>
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [searchResults, setSearchResults] = useState(null);
+  
+  const [searchResults, setSearchResults] = useState({
+    data: null,
+    error: false,
+    pending: false,
+  });
   
   const {
     getStatus: {
