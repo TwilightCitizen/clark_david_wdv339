@@ -67,7 +67,7 @@ const SearchBar = () => {
       
       onSubmit={event => {
         event.preventDefault();
-        if (searchTerms) getSearchRun(searchTerms);
+        if (!searchDisabled) getSearchRun(searchTerms);
       }}
     >
       <div
