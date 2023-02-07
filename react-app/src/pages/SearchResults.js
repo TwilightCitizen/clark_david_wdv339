@@ -24,9 +24,13 @@ const SearchResults = () => {
   
   return (
     <>
-      {searchResults
+      {searchResults.data
         ? <p>{JSON.stringify(searchResults)}</p>
-        : <p>No Results</p>}
+        : searchResults.error
+        ? <p>A horrible error corrupted your search!</p>
+        : searchResults.pending
+        ? <p>Hang on while we search for that stuff...</p>
+        : <p>Why not try searching for something already?</p>}
     </>
   );
 };
