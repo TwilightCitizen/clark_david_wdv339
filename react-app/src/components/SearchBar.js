@@ -32,14 +32,44 @@ const SearchBar = () => {
   } = useSpotifyApi();
   
   useEffect(() => {
-    if (getSearchData) setSearchResults(getSearchData);
-    if (getSearchError) setSearchResults(null);
-  }, [getSearchData, getSearchError]);
+    if (getSearchData) {
+      setSearchTerms('');
+      
+      setSearchResults(() => ({
+        data: getSearchData,
+        error: false,
+        pending: false
+      }));
+    }
+    
+    if (getSearchError) {
+      setSearchResults(() => ({
+        data: null,
+        error: true,
+        pending: false
+      }));
+    }
+    
+    if (getSearchIsPending) {
+      setSearchResults(() => ({
+        data: null,
+        error: false,
+        pending: true
+      }));
+    }
+  }, [getSearchData, getSearchError, getSearchIsPending]);
   
   const searchDisabled = getSearchIsPending || searchTerms === '';
   
   return (
-    <form className="flex flex-row flex-grow-1 h2 justify-center ml1 ml2-m ml3-l relative">
+    <form
+      className="flex flex-row flex-grow-1 h2 justify-center ml1 ml2-m ml3-l relative"
+      
+      onSubmit={event => {
+        event.preventDefault();
+        if (searchTerms) getSearchRun(searchTerms);
+      }}
+    >
       <div
         className="h2 bg-green br4 shadow-1 w-100 progress-bar absolute o-50"
         
@@ -61,7 +91,7 @@ const SearchBar = () => {
       />
       
       <button
-        type="button"
+        type="submit"
         style={{ marginLeft: "-0.75em" }}
         disabled={searchDisabled}
         
@@ -72,11 +102,6 @@ const SearchBar = () => {
             'bg-light-green black-80 hover-bg-black-80 hover-white'
           }`
         }
-        
-        onClick={event => {
-          event.preventDefault();
-          getSearchRun(searchTerms);
-        }}
       >
         Search
       </button>
