@@ -1,0 +1,28 @@
+{
+  "name": "clark_david_wdv339-express_api",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "predev": "docker-compose up -d",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David A. Clark, Jr.",
+  "license": "ISC",
+  "dependencies": {
+    "@redis/client": "^1.5.5",
+    "@redis/search": "^1.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.3.0",
+    "path": "^0.12.7",
+    "query-string": "^8.1.0",
+    "redis-om": "^0.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

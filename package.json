@@ -1,0 +1,30 @@
+{
+  "name": "clark_david_wdv339",
+  "version": "1.0.0",
+  "engines": {
+    "node": "19.3.0",
+    "npm": "9.2.0"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "scripts": {
+    "dev:react": "concurrently \"npm run dev --prefix express-api\" \"npm run start --prefix react-app\""  ,
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "concurrently \"npm i --prefix express-api\" \"npm i --prefix react-app\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TwilightCitizen/clark_david_wdv339.git"
+  },
+  "author": "David A. Clark, Jr.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TwilightCitizen/clark_david_wdv339/issues"
+  },
+  "homepage": "https://github.com/TwilightCitizen/clark_david_wdv339#readme",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
