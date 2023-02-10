@@ -40,18 +40,6 @@ const contraReducer = (state, action) => {
       .toLowerCase()
       .includes(entry)
     ) {
-      console.log(
-        action
-        .terms
-        .toLowerCase()
-        .includes(entry)
-      )
-      
-      console.log({
-        codesRemaining: state.codesRemaining.slice(1),
-        searched: [...state.searched, action.terms]
-      })
-      
       return ({
         codesRemaining: state.codesRemaining.slice(1),
         searched: [...state.searched, action.terms]
