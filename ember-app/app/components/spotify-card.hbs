@@ -15,7 +15,7 @@ Project Portfolio III
 >
   <img
     class="w-100 flex-grow-1 br4"
-    src="{{if @jsonData.album.images.[1] @jsonData.album.images.[1].url if jsonData.images.[1] jsonData.images.[1].url "spotify-logo-green.png"}}"
+    src="{{if @jsonData.album.images.[1] @jsonData.album.images.[1].url (if jsonData.images.[1] jsonData.images.[1].url "spotify-logo-green.png")}}"
   alt="Artist or Album Artwork"
   />
 
