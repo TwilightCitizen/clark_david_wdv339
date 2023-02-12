@@ -1,8 +1,7 @@
 {
-  "name": "clark-david-wdv339-ember-app",
+  "name": "ember-app",
   "version": "0.0.0",
   "private": true,
-  "repository": "",
   "license": "MIT",
   "author": "David A. Clark, Jr.",
   "directories": {

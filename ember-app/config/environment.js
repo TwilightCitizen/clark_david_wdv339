@@ -13,7 +13,7 @@ Project Portfolio III
 
 const environment = environment => {
   const ENV = {
-    modulePrefix: 'clark-david-wdv339-ember-app',
+    modulePrefix: 'ember-app',
     environment,
     rootURL: '/',
     locationType: 'history',
