@@ -22,7 +22,9 @@ class SearchBarComponent extends Component {
   @tracked searchDisabled = true;
 
   get searchProgressStyle() {
-    return htmlSafe(`z-index: +2; display: ${this.searchPending ? "block;" : "none;"}`)
+    return htmlSafe(
+      `z-index: +2; display: ${this.searchPending ? 'block;' : 'none;'}`
+    );
   }
 
   @action setSearchTerms(event) {
