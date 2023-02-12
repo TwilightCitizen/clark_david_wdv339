@@ -12,6 +12,7 @@ Project Portfolio III
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { htmlSafe } from '@ember/template';
 
 // Definition
 
@@ -19,6 +20,12 @@ class SearchBarComponent extends Component {
   @tracked searchPending = false;
   @tracked searchTerms = '';
   @tracked searchDisabled = true;
+
+  get searchProgressStyle() {
+    return htmlSafe(
+      `z-index: +2; display: ${this.searchPending ? 'block;' : 'none;'}`
+    );
+  }
 
   @action setSearchTerms(event) {
     this.searchTerms = event.target.value;
