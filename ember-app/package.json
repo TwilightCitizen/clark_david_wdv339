@@ -2,7 +2,6 @@
   "name": "clark-david-wdv339-ember-app",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for clark-david-wdv339-ember-app goes here",
   "repository": "",
   "license": "MIT",
   "author": "",
@@ -11,16 +10,16 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "ember build --environment=production",
+    "build": "./ember build --environment=production",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
     "lint:fix": "concurrently \"npm:lint:*:fix\" --names \"fix:\"",
     "lint:hbs": "ember-template-lint .",
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
-    "start": "ember serve",
+    "start": "./ember serve",
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
-    "test:ember": "ember test"
+    "test:ember": "./ember test"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
