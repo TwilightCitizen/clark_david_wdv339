@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "dev:react": "concurrently \"npm run dev --prefix express-api\" \"npm run start --prefix react-app\"",
-    "dev:ember": "concurrently \"npm run dev --prefix express-api\" \"nmp run start --prefix ember-app\"",
+    "dev:ember": "concurrently \"npm run dev --prefix express-api\" \"npm run start --prefix ember-app\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "concurrently \"npm i --prefix express-api\" \"npm i --prefix react-app\" \"npm i --prefix ember-app\""
   },
