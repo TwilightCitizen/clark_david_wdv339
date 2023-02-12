@@ -12,6 +12,7 @@ Project Portfolio III
 import Route from '@ember/routing/route';
 
 // Definition
+
 class SearchResultsRoute extends Route {}
 
 // Exports
