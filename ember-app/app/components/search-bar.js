@@ -22,7 +22,7 @@ class SearchBarComponent extends Component {
 
   @action setSearchTerms(event) {
     this.searchTerms = event.target.value;
-    this.searchDisabled = this.searchPending || this.searchTerms === ''
+    this.searchDisabled = this.searchPending || this.searchTerms === '';
   }
 
   @action submit(event) {
