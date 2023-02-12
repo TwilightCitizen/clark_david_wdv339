@@ -1,0 +1,11 @@
+{
+  "name": "clark_david_wdv339-ember-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David A. Clark, Jr.",
+  "license": "ISC"
+}
