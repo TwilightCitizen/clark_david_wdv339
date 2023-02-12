@@ -7,4 +7,10 @@ Section	01
 Project Portfolio III
 --}}
 
-{{yield}}
+<header class="bg-dark-green flex flex-row flex-grow-0 items-center pa1 pa2-m pa3-l">
+  <SpotifyLogo @variant="white" />
+
+  {{#if this.loggedIn}}
+    <SearchBar />
+  {{/if}}
+</header>

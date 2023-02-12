@@ -16,22 +16,22 @@ import { hbs } from 'ember-cli-htmlbars';
 
 // Tests
 
-module('Integration | Component | logo', function (hooks) {
+module('Integration | Component | spotify-logo', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<Logo />`);
+    await render(hbs`<SpotifyLogo />`);
 
     assert.dom(this.element).hasText('');
 
     // Template block usage:
     await render(hbs`
-      <Logo>
+      <SpotifyLogo>
         template block text
-      </Logo>
+      </SpotifyLogo>
     `);
 
     assert.dom(this.element).hasText('template block text');
