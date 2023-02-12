@@ -10,10 +10,19 @@ Project Portfolio III
 // Library Imports
 
 import Controller from '@ember/controller';
+import { service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+
+// Application Imports
+
+import { loginUrl } from '../services/spotify-api';
 
 // Definition
 
-class LoginController extends Controller {}
+class LoginController extends Controller {
+  @service SpotifyApi
+  @tracked loginUrl = loginUrl;
+}
 
 
 // Exports
