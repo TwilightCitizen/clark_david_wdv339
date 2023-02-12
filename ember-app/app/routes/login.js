@@ -16,4 +16,4 @@ class LoginRoute extends Route {}
 
 // Exports
 
-export default LoginRoute
+export default LoginRoute;
