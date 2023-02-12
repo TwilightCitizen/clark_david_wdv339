@@ -25,6 +25,7 @@ class Router extends EmberRouter {
 Router.map(function () {
   this.route('login');
   this.route('search-results');
+  this.route('not-found');
 });
 
 // Exports
