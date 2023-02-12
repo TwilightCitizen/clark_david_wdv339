@@ -1,8 +1,21 @@
+/*
+David A. Clark, Jr.
+Student #0004796375
+Class WDV339-O
+Term C202302
+Section	01
+Project Portfolio III
+*/
+
+// Library Imports
+
 import {
   setupApplicationTest as upstreamSetupApplicationTest,
   setupRenderingTest as upstreamSetupRenderingTest,
   setupTest as upstreamSetupTest,
 } from 'ember-qunit';
+
+// Definitions
 
 // This file exists to provide wrappers around ember-qunit's / ember-mocha's
 // test setup functions. This way, you can easily extend the setup that is
@@ -38,5 +51,7 @@ function setupTest(hooks, options) {
 
   // Additional setup for unit tests can be done here.
 }
+
+// Exports
 
 export { setupApplicationTest, setupRenderingTest, setupTest };

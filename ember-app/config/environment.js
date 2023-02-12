@@ -7,11 +7,11 @@ Section	01
 Project Portfolio III
 */
 
-'use strict'
+'use strict';
 
 // Definition
 
-const environment = environment => {
+const environment = (environment) => {
   const ENV = {
     modulePrefix: 'ember-app',
     environment,
