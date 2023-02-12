@@ -7,5 +7,26 @@ Section	01
 Project Portfolio III
 --}}
 
-{{page-title "SearchResults"}}
-{{outlet}}
+{{page-title "Search Results"}}
+
+<div class="flex flex-column flex-grow-1 justify-center items-center">
+  {{#unless this.searchResults}}
+    <SpotifyLogo @variant="green" />
+  {{/unless}}
+
+  {{#if this.searchResults }}
+    <p>TODO: SpotifyCards</p>
+  {{else if this.searchError}}
+    <p class="tc w-80 w-50-l">
+      A horrible error corrupted your search!  It's probably your fault.  The guy that made this app is like really, REALLY good at coding, so...
+    </p>
+  {{else if this.searchPending}}
+    <p class="tc w-80 w-50-l">
+      Hang on while we search for that stuff!  Hopefully you didn't search for something hard to find...
+    </p>
+  {{else}}
+    <p class="tc w-80 w-50-l">
+      Why not try searching for something already? Artists, albums, and tracks aren't going to just search for themselves after all!
+    </p>
+  {{/if}}
+</div>

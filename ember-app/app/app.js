@@ -17,7 +17,6 @@ import loadInitializers from 'ember-load-initializers';
 
 import config from 'ember-app/config/environment';
 
-
 // Definition
 
 class App extends Application {
