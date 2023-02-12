@@ -1,6 +1,17 @@
-'use strict';
+/*
+David A. Clark, Jr.
+Student #0004796375
+Class WDV339-O
+Term C202302
+Section	01
+Project Portfolio III
+*/
 
-module.exports = function (environment) {
+'use strict'
+
+// Definition
+
+const environment = environment => {
   const ENV = {
     modulePrefix: 'clark-david-wdv339-ember-app',
     environment,
@@ -46,3 +57,7 @@ module.exports = function (environment) {
 
   return ENV;
 };
+
+// Exports
+
+module.exports = environment;
