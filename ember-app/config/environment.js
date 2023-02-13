@@ -37,6 +37,14 @@ const environment = (environment) => {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+
+    ENV.API = {
+      spotifyUrl: '/spotify',
+      scheme: 'http',
+      host: '127.0.0.1',
+      port: 3001,
+      baseUrl: '/api/v1',
+    };
   }
 
   if (environment === 'test') {

@@ -10,14 +10,23 @@ Project Portfolio III
 // Library Imports
 
 import Controller from '@ember/controller';
+import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 // Definition
 
 class SearchResultsController extends Controller {
-  @tracked searchResults = null;
-  @tracked searchError = false;
-  @tracked searchPending = false;
+  @service SpotifyApi;
+  @tracked search;
+
+  subscription = this.SpotifyApi.search.subscribe({
+    next: (v) => this.search = v
+  });
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+    this.subscription.unsubscribe;
+  }
 }
 
 // Exports
