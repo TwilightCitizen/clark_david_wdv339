@@ -15,7 +15,20 @@ Project Portfolio III
   {{/unless}}
 
   {{#if this.search.results }}
-    <p>TODO: SpotifyCards</p>
+    <SpotifyCards
+      @title="Artists"
+      @jsonData={{this.search.results.artists}}
+    />
+
+    <SpotifyCards
+      @title="Albums"
+      @jsonData={{this.search.results.albums}}
+    />
+
+    <SpotifyCards
+      @title="Tracks"
+      @jsonData={{this.search.results.tracks}}
+    />
   {{else if this.search.error}}
     <p class="tc w-80 w-50-l">
       A horrible error corrupted your search!  It's probably your fault.  The guy that made this app is like really, REALLY good at coding, so...

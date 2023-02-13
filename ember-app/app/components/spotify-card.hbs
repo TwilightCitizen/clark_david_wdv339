@@ -9,13 +9,13 @@ Project Portfolio III
 
 <a
   class="flex flex-column w-100 w-40-m w-30-l bg-dark-green pa1 pa2-m pa3-l br4 ma1 ma2-m ma3-l no-underline white hover-bg-light-green hover-black-80"
-  href="{{@jsonData.external_urls.spotify}}"
+  href={{@jsonData.external_urls.spotify}}
   target="_blank" rel="noopener noreferrer"
 >
   <img
     class="w-100 flex-grow-1 br4"
-    src="{{if @jsonData.album.images "1.url"}}"
-  alt="Artist or Album Artwork"
+    src={{if @jsonData.album.images.length @jsonData.album.images.0.url (if @jsonData.images.length @jsonData.images.0.url "spotify-logo-green.png")}}
+    alt="Artist or Album Artwork"
   />
 
   <p class="flex-grow-0">{{@jsonData.name}}</p>

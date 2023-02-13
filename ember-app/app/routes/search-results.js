@@ -11,16 +11,23 @@ Project Portfolio III
 
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-
-// Application Imports
-
-import SpotifyApi from '../services/spotify-api';
+import { tracked } from '@glimmer/tracking';
 
 // Definition
 
 class SearchResultsRoute extends Route {
   @service router;
   @service SpotifyApi;
+  @tracked search;
+
+  subscription = this.SpotifyApi.search.subscribe({
+    next: (v) =>this.search = v
+  });
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+    this.subscription.unsubscribe;
+  }
 
   beforeModel(_transition) {
     this.SpotifyApi.loggedIn.then((v) => {
