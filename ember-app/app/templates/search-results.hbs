@@ -10,17 +10,17 @@ Project Portfolio III
 {{page-title "Search Results"}}
 
 <div class="flex flex-column flex-grow-1 justify-center items-center">
-  {{#unless this.searchResults}}
+  {{#unless this.search.results}}
     <SpotifyLogo @variant="green" />
   {{/unless}}
 
-  {{#if this.searchResults }}
+  {{#if this.search.results }}
     <p>TODO: SpotifyCards</p>
-  {{else if this.searchError}}
+  {{else if this.search.error}}
     <p class="tc w-80 w-50-l">
       A horrible error corrupted your search!  It's probably your fault.  The guy that made this app is like really, REALLY good at coding, so...
     </p>
-  {{else if this.searchPending}}
+  {{else if this.search.pending}}
     <p class="tc w-80 w-50-l">
       Hang on while we search for that stuff!  Hopefully you didn't search for something hard to find...
     </p>
