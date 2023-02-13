@@ -10,30 +10,46 @@ Project Portfolio III
 // Library Imports
 
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { htmlSafe } from '@ember/template';
+import { service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+
+// Application Imports
+
+import SpotifyApi from '../services/spotify-api';
 
 // Definition
 
 class SearchBarComponent extends Component {
-  @tracked searchPending = false;
-  @tracked searchTerms = '';
+  @service SpotifyApi;
+  @tracked searchTerms;
   @tracked searchDisabled = true;
+  @tracked search;
+
+  subscription = this.SpotifyApi.search.subscribe({
+    next: (v) => this.search = v
+  });
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+    this.subscription.unsubscribe;
+  }
 
   get searchProgressStyle() {
     return htmlSafe(
-      `z-index: +2; display: ${this.searchPending ? 'block;' : 'none;'}`
+      `z-index: +2; display: ${this.search?.pending ? 'block;' : 'none;'}`
     );
   }
 
   @action setSearchTerms(event) {
     this.searchTerms = event.target.value;
-    this.searchDisabled = this.searchPending || this.searchTerms === '';
+    this.searchDisabled = this.search?.pending || this.searchTerms === '';
   }
 
   @action submit(event) {
     event.preventDefault();
+    this.SpotifyApi.searchFor(this.searchTerms);
   }
 }
 
