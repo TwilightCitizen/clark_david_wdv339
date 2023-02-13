@@ -8,13 +8,13 @@ Project Portfolio III
 --}}
 
 <div class="flex flex-column w-100">
-  <h1 class="tc f3 lh-copy">{title}</h1>
+  <h1 class="tc f3 lh-copy">{{@title}}</h1>
 
   <div class="flex flex-row flex-wrap w-100 justify-center">
-    {{#each @jsonData.items}}
+    {{#each @jsonData.items as |item|}}
       <SpotifyCard
-        key="{{@index}}"
-        fromSpotifyJsonData="{{this}}"
+        key={{@index}}
+        @jsonData={{item}}
       />
     {{else}}
       <p class="tc w-80 w-50-l">
