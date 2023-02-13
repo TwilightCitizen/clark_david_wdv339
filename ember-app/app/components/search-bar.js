@@ -15,10 +15,6 @@ import { htmlSafe } from '@ember/template';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
-// Application Imports
-
-import SpotifyApi from '../services/spotify-api';
-
 // Definition
 
 class SearchBarComponent extends Component {
