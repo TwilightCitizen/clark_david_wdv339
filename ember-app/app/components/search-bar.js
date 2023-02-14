@@ -28,8 +28,8 @@ class SearchBarComponent extends Component {
   });
 
   willDestroy() {
-    super.willDestroy(...arguments);
-    this.subscription.unsubscribe;
+    super.willDestroy();
+    this.subscription.unsubscribe();
   }
 
   get searchProgressStyle() {
