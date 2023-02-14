@@ -15,5 +15,16 @@ import { defineConfig } from 'vite';
 // Exported Definition
 
 export default defineConfig({
-	plugins: [sveltekit()]
+	plugins: [sveltekit()],
+  
+  server:{
+    port: 3000,
+    strictPort: false,
+  },
+  
+  preview:{
+    port: 3000,
+    strictPort: false,
+  }
+  
 });
