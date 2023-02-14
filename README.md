@@ -14,7 +14,7 @@
 
 ### Selected Technologies
 
-- Front End UI with React
+- Front End UI with React or Ember
 - Back End Versioned API with Express
 - Back End Storage Persisted in Redis Cache
 - Application Data from Spotify Web API
@@ -28,6 +28,7 @@ It is important to understand the project organization.  Issuing commands from w
 | Project Root | ./            |
 | Express API  | ./express-api |
 | React App    | ./react-app   |
+| Ember App    | ./ember-app   |    
 
 ### Branching Strategy
 
@@ -133,9 +134,15 @@ Then, issue the following command from a terminal within the *Project Root* to i
 
 ### Running the Application
 
-Issue the following command from a terminal within the *Project Root* to start the application:
+Issue the following command from a terminal within the *Project Root* to start the application with the React front end:
 
 > npm run dev:react
+
+Alternatively, issue the following command from a terminal within the *Project Root* to start the application with the Ember front end:
+
+> npm run dev:ember
+
+Note that both front ends *cannot* run at the same time because they both run on the same port.  Changing the port is not an option because the back end expects the front end to run on the port that is configured.
 
 To halt the application, from a terminal within the *Project Root*, issue the SIGNINT signal, often mapped to <Ctrl> + <c>.
 
@@ -143,7 +150,7 @@ To halt the application, from a terminal within the *Project Root*, issue the SI
 
 | Link                                        | Description                                                  |
 |:--------------------------------------------|:-------------------------------------------------------------|
-| http://localhost:3000                       | React Front End UI (Specific Routes to Be Determined)        |
+| http://localhost:3000                       | React or Ember Front End UI                                  |
 | http://localhost:3001                       | Express Back End                                             |
 | http://localhost:3001/api/v1                | Express Back End API Routes Base URL                         |
 | http://localhost:3001/api/v1/spotify        | Express Back End API Routes for Spotify Application          |
