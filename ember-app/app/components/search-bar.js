@@ -19,6 +19,7 @@ import { tracked } from '@glimmer/tracking';
 
 class SearchBarComponent extends Component {
   @service SpotifyApi;
+  @service ContraEasterEgg
   @tracked searchTerms;
   @tracked searchDisabled = true;
   @tracked search;
@@ -28,8 +29,8 @@ class SearchBarComponent extends Component {
   });
 
   willDestroy() {
-    super.willDestroy(...arguments);
-    this.subscription.unsubscribe;
+    super.willDestroy();
+    this.subscription.unsubscribe();
   }
 
   get searchProgressStyle() {
@@ -46,6 +47,9 @@ class SearchBarComponent extends Component {
   @action submit(event) {
     event.preventDefault();
     this.SpotifyApi.searchFor(this.searchTerms);
+    this.ContraEasterEgg.searchedFor(this.searchTerms);
+
+    this.searchTerms = '';
   }
 }
 
