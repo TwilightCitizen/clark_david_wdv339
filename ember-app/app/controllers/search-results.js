@@ -17,15 +17,21 @@ import { tracked } from '@glimmer/tracking';
 
 class SearchResultsController extends Controller {
   @service SpotifyApi;
+  @service ContraEasterEgg;
   @tracked search;
 
-  subscription = this.SpotifyApi.search.subscribe({
+  spotifyApiSubscription = this.SpotifyApi.search.subscribe({
     next: (v) => this.search = v
+  });
+
+  contraEasterEggSubscription = this.ContraEasterEgg.wasFound.subscribe({
+    next: () => alert('You Have 50 Lives')
   });
 
   willDestroy() {
     super.willDestroy(...arguments);
-    this.subscription.unsubscribe;
+    this.spotifyApiSubscription.unsubscribe();
+    this.contraEasterEggSubscription.unsubscribe()
   }
 }
 
