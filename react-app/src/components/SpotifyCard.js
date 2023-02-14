@@ -27,7 +27,7 @@ const SpotifyCard = ({ fromSpotifyJsonData: jsonData }) => {
     >
       <img
         className="w-100 flex-grow-1 br4"
-        src={jsonData.album?.images[0].url ?? jsonData.images[0].url}
+        src={jsonData.album?.images[0].url ?? jsonData.images[0]?.url ?? 'spotify-logo-green.png'}
         alt="Artist or Album Artwork"
       />
       

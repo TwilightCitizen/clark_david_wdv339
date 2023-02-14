@@ -24,7 +24,11 @@ const SpotifyCards = ({ title, fromSpotifyJsonData: jsonData }) => {
   
       <div className='flex flex-row flex-wrap w-100 justify-center'>
         {jsonData.items.length
-          ? jsonData.items.map(item => <SpotifyCard fromSpotifyJsonData={item} />)
+          ? jsonData.items.map((item, index) =>
+            <SpotifyCard
+              key={index}
+              fromSpotifyJsonData={item}
+            />)
           
           : <p className="tc w-80 w-50-l">
             Spotify returned exactly zero, nada, zilch {title.toLowerCase()}!  Maybe you searched for something stupid?  &#128556;
