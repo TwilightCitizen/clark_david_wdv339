@@ -13,7 +13,7 @@ import { redirect } from '@sveltejs/kit';
 
 // Application Imports
 
-import { loginUrl, loggedIn } from '$lib/spotify-api.js';
+import { loggedIn } from '$lib/spotify-api.js';
 
 // Definition
 
