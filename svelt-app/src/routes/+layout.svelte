@@ -15,11 +15,13 @@ Project Portfolio III
   // Application Imports
   
   import SpotifyLogo from '$lib/SpotifyLogo.svelte';
+  import SearchBar from '$lib/SearchBar.svelte';
 </script>
 
 {#if !$page.error}
   <header class="bg-dark-green flex flex-row flex-grow-0 items-center pa1 pa2-m pa3-l">
     <SpotifyLogo variant="white" />
+    <SearchBar />
   </header>
 {/if}
 
