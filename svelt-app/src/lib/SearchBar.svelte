@@ -34,10 +34,6 @@ Project Portfolio III
   }
   
   onDestroy(() => subscription.unsubscribe);
-  
-  // Exports
-  
-  export { searchStatus };
 </script>
 
 <style>
