@@ -25,4 +25,6 @@ Project Portfolio III
   </header>
 {/if}
 
-<slot></slot>
+<div class="flex flex-column flex-grow-1 pa1 pa2-m pa3-l">
+  <slot></slot>
+</div>

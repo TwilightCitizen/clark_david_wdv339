@@ -19,17 +19,16 @@ Project Portfolio III
   
   // Exports
   
-  export { jsonData, SpotifyCard };
+  export { title, jsonData };
 </script>
 
 <div class="flex flex-column w-100">
   <h1 class="tc f3 lh-copy">{title}</h1>
   
   <div class="flex flex-row flex-wrap w-100 justify-center">
-    {#each jsonData.items as item, index}
+    {#each jsonData.items as item, index (index)}
       <SpotifyCard
-        key={index}
-        @jsonData={item}
+        jsonData={item}
       />
     {:else}
       <p class="tc w-80 w-50-l">
