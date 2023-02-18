@@ -14,7 +14,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // Application Imports
 
-
+import Login from '@/views/Login.vue';
 
 // Definition
 
@@ -25,7 +25,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: null
+      component: Login
     }, {
       path: '/search-results',
       name: 'searchResults',
