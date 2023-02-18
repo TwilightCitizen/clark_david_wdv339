@@ -9,7 +9,7 @@ Project Portfolio III
 
 <script>
   export default {
-    name: 'SpotifyCard',
+    name: 'Login',
   }
 </script>
 
