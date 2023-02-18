@@ -14,12 +14,12 @@ Project Portfolio III
 
   // Application Imports
 
-
+  import SpotifyLogo from '@/components/SpotifyLogo.vue';
 </script>
 
 <template>
-  <header class="bg-dark-green flex flex-row flex-grow-0 items-center pa1 pa2-m pa3-l">
-    <p>Header</p>
+  <header class='bg-dark-green flex flex-row flex-grow-0 items-center pa1 pa2-m pa3-l'>
+    <SpotifyLogo variant="white" />
   </header>
 
   <RouterView />
