@@ -15,7 +15,8 @@ Project Portfolio III
   // Application Imports
   
   import { search, searchFor } from '$lib/spotify-api';
-  
+  import { searchedFor } from '$lib/contra-easter-egg';
+
   // Definitions
   
   let searchStatus;
@@ -28,7 +29,7 @@ Project Portfolio III
   const onSubmit = (event) => {
     event.preventDefault();
     searchFor(searchTerms);
-    // searchedFor(this.searchTerms); // Contra Easter Egg
+    searchedFor(searchTerms);
   
     searchTerms = '';
   }
@@ -78,7 +79,7 @@ Project Portfolio III
     type="submit"
     value="Submit"
     style="margin-left: -0.75em;"
-    disabled={search?.pending || searchTerms === ''}
+    disabled={search?.pending || searchTerms === ""}
     
     class="\
       flex-grow-0 br4 br--right bw0 pl3 outline-0 \
