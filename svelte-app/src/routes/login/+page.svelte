@@ -10,7 +10,7 @@ Project Portfolio III
 <script>
   // Application Imports
 
-  import { loginUrl } from '$lib/spotify-api.js';
+  import { loginUrl } from '$lib/spotify-api';
 </script>
 
 <div class="flex flex-column flex-grow-1 justify-center items-center">
