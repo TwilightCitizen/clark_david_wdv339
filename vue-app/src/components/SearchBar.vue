@@ -33,6 +33,12 @@ Project Portfolio III
           error: false,
           pending: false
         });
+      },
+
+      hoverStyle() {
+        return this.searchStatus?.pending
+          || this.searchTerms === '' ? '' :
+          'bg-light-green black-80 hover-bg-black-80 hover-white'
       }
     }
   }
@@ -68,7 +74,7 @@ Project Portfolio III
       style="margin-left: -0.75em;"
       :disabled="searchStatus?.pending || searchTerms === ''"
       class="flex-grow-0 br4 br--right bw0 pl3 outline-0"
-      :class="searchStatus?.pending ? 'bg-light-green black-80 hover-bg-black-80 hover-white' : ''"
+      :class="hoverStyle"
     />
   </form>
 </template>
