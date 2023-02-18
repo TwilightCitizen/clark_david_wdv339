@@ -16,8 +16,8 @@ Project Portfolio III
   
   import SpotifyLogo from '$lib/SpotifyLogo.svelte';
   import SpotifyCards from '$lib/SpotifyCards.svelte';
-  import { search } from '$lib/spotify-api.js';
-  import { wasFound } from '$lib/contra-easter-egg.js';
+  import { search } from '$lib/spotify-api';
+  import { wasFound } from '$lib/contra-easter-egg';
 
   // Definitions
 

@@ -10,7 +10,7 @@ Project Portfolio III
 <script>
   // Imports
   
-  import SpotifyCard from "$lib/SpotifyCard.svelte";
+  import SpotifyCard from '$lib/SpotifyCard.svelte';
   
   // Definitions
   
