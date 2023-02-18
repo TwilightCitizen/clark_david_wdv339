@@ -16,17 +16,25 @@ Project Portfolio III
   
   import SpotifyLogo from '$lib/SpotifyLogo.svelte';
   import SpotifyCards from '$lib/SpotifyCards.svelte';
-  import { search } from "$lib/spotify-api.js";
+  import { search } from '$lib/spotify-api.js';
+  import { wasFound } from '$lib/contra-easter-egg.js';
 
   // Definitions
 
   let searchStatus;
 
-  const subscription = search.subscribe({
+  const spotifyApiSubscription = search.subscribe({
     next: (v) => searchStatus = v
   });
+  
+  const contraEasterEggSubscription = wasFound.subscribe({
+    next: () => alert('You Have 50 Lives')
+  });
 
-  onDestroy(() => subscription.unsubscribe);
+  onDestroy(() => {
+    spotifyApiSubscription.unsubscribe();
+    contraEasterEggSubscription.unsubscribe();
+  });
 </script>
 
 <div class="flex flex-column flex-grow-1 justify-center items-center">
