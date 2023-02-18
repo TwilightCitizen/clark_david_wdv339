@@ -24,7 +24,7 @@ Project Portfolio III
 >
   <img
     class="w-100 flex-grow-1 br4"
-    src={jsonData.album?.images[0].url ?? jsonData?.images[0].url ?? "spotify-logo-green.png"}
+    src={jsonData.album?.images[0]?.url ?? jsonData?.images[0]?.url ?? "spotify-logo-green.png"}
     alt="Artist or Album Artwork"
   />
   
