@@ -1,11 +1,24 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+/*
+David A. Clark, Jr.
+Student #0004796375
+Class WDV339-O
+Term C202302
+Section	01
+Project Portfolio III
+*/
 
-import './assets/main.css'
+// Library Imports
 
-const app = createApp(App)
+import { createApp } from 'vue';
+import router from './router';
 
-app.use(router)
+// Application Imports
 
-app.mount('#app')
+import App from './App.vue';
+
+// Definitions
+
+const app = createApp(App);
+
+app.use(router);
+app.mount('#app');
