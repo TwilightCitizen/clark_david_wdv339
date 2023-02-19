@@ -16,6 +16,8 @@ Project Portfolio III
 
   import { useSearch } from '@/composables/useSpotifyApi';
 
+  // Definitions
+
   const searchTerms = ref('');
   const { searchStatus } = useSearch(searchTerms);
 
