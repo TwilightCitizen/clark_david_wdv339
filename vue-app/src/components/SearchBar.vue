@@ -8,37 +8,53 @@ Project Portfolio III
 -->
 
 <script>
+  // Library Imports
+
+  import { ref, unref } from 'vue';
+
+  // Application Imports
+
+  import { useSearch } from '@/composables/useSpotifyApi';
+
+  const searchTerms = ref('');
+  const { searchStatus } = useSearch(searchTerms);
+
   export default {
     name: 'SearchBar',
 
     data() {
       return {
-        searchTerms: ''
+        searchTerms: searchTerms,
+        searchStatus: searchStatus
       };
     },
 
     methods: {
-      submit(e) {
-        // searchFor(this.searchTerms);
-        // searchedFor(this.searchTerms);
-
+      clear() {
         this.searchTerms = '';
       }
     },
 
     computed: {
-      searchStatus() {
-        return ({
-          data: null,
-          error: false,
-          pending: false
-        });
+      hoverStyle() {
+        return (
+          unref(this.searchTerms) === '' ? '' :
+            'bg-light-green black-80 hover-bg-black-80 hover-white'
+        );
       },
 
-      hoverStyle() {
-        return this.searchStatus?.pending
-          || this.searchTerms === '' ? '' :
-          'bg-light-green black-80 hover-bg-black-80 hover-white'
+      searchUnderlay() {
+        return {
+          'progress-bar': unref(this.searchStatus)?.pending,
+          'bg-green': unref(this.searchStatus)?.pending
+        };
+      },
+
+      clearDisabled() {
+        return (
+          unref(this.searchStatus)?.pending
+          || unref(this.searchTerms) === ''
+        );
       }
     }
   }
@@ -47,12 +63,12 @@ Project Portfolio III
 <template>
   <form
     class="flex flex-row flex-grow-1 h2 justify-center ml1 ml2-m ml3-l relative"
-    @submit.prevent="submit"
+    @submit.prevent
   >
     <div
-      id="search-overlay"
-      class="h2 bg-green br4 shadow-1 w-100 progress-bar absolute o-50"
-      :class="{ pending: searchStatus?.pending }"
+      id="search-underlay"
+      class="h2 bg-white br4 shadow-1 w-100 absolute"
+      :class="searchUnderlay"
     >
     </div>
 
@@ -60,36 +76,31 @@ Project Portfolio III
       id="search-terms"
       aria-label="Search Terms"
       type="text"
-      placeholder="Enter an artist, album, or track name, and tap search. &rarr;"
-      class="flex-grow-1 pa1 br4 bw0 tc outline-0"
+      placeholder="Type to search for an artist, album, or track name."
+      class="flex-grow-1 pa1 br4 bw0 tc outline-0 bg-transparent"
       v-model="searchTerms"
-      :disabled="searchStatus?.pending"
     />
 
     <input
-      id="submit"
-      aria-label="Submit"
-      type="submit"
-      value="Submit"
+      id="clear"
+      aria-label="Clear"
+      type="button"
+      value="Clear"
       style="margin-left: -0.75em;"
-      :disabled="searchStatus?.pending || searchTerms === ''"
-      class="flex-grow-0 br4 br--right bw0 pl3 outline-0"
+      :disabled="clearDisabled"
+      class="flex-grow-0 br4 br--right bw0 outline-0"
       :class="hoverStyle"
+      @click="clear"
     />
   </form>
 </template>
 
 <style>
-  #search-overlay {
-    z-index: +2;
-    display: none;
-  }
-
-  #search-overlay.pending {
-    display: block;
-  }
-
   #search-terms {
+    z-index: +2;
+  }
+
+  #clear {
     z-index: +1;
   }
 </style>
