@@ -11,14 +11,14 @@ Project Portfolio III
 
 import { createRouter, createWebHistory } from 'vue-router';
 
-
 // Application Imports
 
 import Login from '@/views/Login.vue';
 import SearchResults from '@/views/SearchResults.vue';
 import NotFound from '@/views/NotFound.vue';
+import { useLoggedIn } from '@/composables/useSpotifyApi';
 
-// Definition
+// Definitions
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,19 +26,28 @@ const router = createRouter({
   routes: [
     {
       path: '/login',
-      name: 'login',
+      name: 'Login',
       component: Login
     }, {
       path: '/search-results',
-      name: 'searchResults',
+      name: 'SearchResults',
       component: SearchResults
     }, {
       path: '/:pathMatch(.*)*',
-      name: 'notFound',
+      name: 'NotFound',
       component: NotFound
     }
   ]
-})
+});
+
+router.beforeEach((to, from) => {
+  if (to.path === '/') return { name: 'Login'};
+  
+  return useLoggedIn().then(loggedIn => {
+    if (to.name === 'Login' && loggedIn) return { name: 'SearchResults' };
+    if (to.name === 'SearchResults' && !loggedIn ) return { name: 'Login' };
+  });
+});
 
 // Exports
 
