@@ -10,16 +10,22 @@ Project Portfolio III
 <script>
   // Library Imports
 
-  import { ref, unref } from 'vue';
+  import { ref, unref, watch } from 'vue';
 
   // Application Imports
 
   import { useSearch } from '@/composables/useSpotifyApi';
+  import useContraEasterEgg from '@/composables/useContraEasterEgg';
 
   // Definitions
 
   const searchTerms = ref('');
   const { searchStatus } = useSearch(searchTerms);
+  const { found } = useContraEasterEgg(searchTerms);
+
+  watch(found, (found) => {
+    if (unref(found)) alert('You Have 50 Lives!');
+  });
 
   export default {
     name: 'SearchBar',
