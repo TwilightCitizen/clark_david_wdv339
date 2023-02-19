@@ -8,8 +8,18 @@ Project Portfolio III
 -->
 
 <script>
+  // Application Imports
+
+  import { loginUrl } from '@/composables/useSpotifyApi';
+
   export default {
     name: 'Login',
+
+    data() {
+      return {
+        loginUrl
+      };
+    }
   }
 </script>
 
@@ -22,7 +32,7 @@ Project Portfolio III
     </p>
 
     <a
-      href=""
+      :href="loginUrl"
       class="white bg-dark-green pa2 br4 no-underline hover-bg-light-green hover-black-80"
     >
       Login
