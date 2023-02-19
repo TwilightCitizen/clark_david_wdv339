@@ -53,10 +53,11 @@ Project Portfolio III
       },
 
       clearDisabled() {
-        return (
-          unref(this.searchStatus)?.pending
-          || unref(this.searchTerms) === ''
-        );
+        return unref(this.searchTerms) === '';
+      },
+
+      clearPending() {
+        return unref(this.searchStatus)?.pending;
       }
     }
   }
@@ -91,7 +92,7 @@ Project Portfolio III
       style="margin-left: -0.75em;"
       :disabled="clearDisabled"
       class="flex-grow-0 br4 br--right bw0 outline-0"
-      :class="hoverStyle"
+      :class="[hoverStyle, { pending: clearPending }]"
       @click="clear"
     />
   </form>
@@ -104,5 +105,9 @@ Project Portfolio III
 
   #clear {
     z-index: +1;
+  }
+
+  #clear.pending {
+    display: none;
   }
 </style>
