@@ -8,10 +8,19 @@ Project Portfolio III
 -->
 
 <script>
+  // Library Imports
+
+  import { unref } from 'vue';
+
   // Application Imports
   
   import SpotifyLogo from '@/components/SpotifyLogo.vue';
   import SpotifyCards from '@/components/SpotifyCards.vue';
+  import { useSearch } from '@/composables/useSpotifyApi';
+
+  // Definitions
+
+  const { searchStatus } = useSearch();
   
   export default {
     name: 'SearchResults',
@@ -23,11 +32,7 @@ Project Portfolio III
 
     computed: {
       searchStatus() {
-        return ({
-          results: null,
-          pending: false,
-          error: false
-        });
+        return unref(searchStatus);
       }
     }
   }
@@ -35,7 +40,7 @@ Project Portfolio III
 
 <template>
   <div class="flex flex-column flex-grow-1 justify-center items-center">
-    <SpotifyLogo v-if="true" variant="green" />
+    <SpotifyLogo v-if="!searchStatus.results" variant="green" />
 
     <template v-if="searchStatus.results">
       <SpotifyCards
@@ -58,7 +63,9 @@ Project Portfolio III
       <p class="tc w-80 w-50-l">
         A horrible error corrupted your search!  It's probably your fault.  The guy that made this app is like really, REALLY good at coding, so...
       </p>
-      {:else if searchStatus.pending}
+    </template>
+
+    <template v-else-if="searchStatus.pending">
       <p class="tc w-80 w-50-l">
         Hang on while we search for that stuff!  Hopefully you didn't search for something hard to find...
       </p>
