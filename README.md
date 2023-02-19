@@ -30,6 +30,7 @@ It is important to understand the project organization.  Issuing commands from w
 | React App    | ./react-app   |
 | Ember App    | ./ember-app   |  
 | Svelte App   | ./svelte-app  |
+| Vue App      | ./vue-app     |
 
 ### Branching Strategy
 
@@ -139,11 +140,13 @@ Issue the following command from a terminal within the *Project Root* to start t
 
 > npm run dev:react
 
-Alternatively, issue one of the following commands from a terminal within the *Project Root* to start the application with the Ember or Svelte front ends:
+Alternatively, issue one of the following commands from a terminal within the *Project Root* to start the application with the Ember, Svelte, or Vue front ends:
 
 > npm run dev:ember
 > 
 > npm run dev:svelte
+> 
+> npm run dev:vue
 
 Note only one front end can run at the same time because they all run on the same port.  Changing the port is not an option because the back end expects the front end to run on the port that is configured.
 
@@ -153,7 +156,7 @@ To halt the application, from a terminal within the *Project Root*, issue the SI
 
 | Link                                        | Description                                                  |
 |:--------------------------------------------|:-------------------------------------------------------------|
-| http://localhost:3000                       | React, Ember, or Svelte Front End UI                         |
+| http://localhost:3000                       | React, Ember, Svelte, or Vue Front End UI                      |
 | http://localhost:3001                       | Express Back End                                             |
 | http://localhost:3001/api/v1                | Express Back End API Routes Base URL                         |
 | http://localhost:3001/api/v1/spotify        | Express Back End API Routes for Spotify Application          |

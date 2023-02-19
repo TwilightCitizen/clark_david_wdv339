@@ -13,8 +13,9 @@
     "dev:react": "concurrently \"npm run dev --prefix express-api\" \"npm run start --prefix react-app\"",
     "dev:ember": "concurrently \"npm run dev --prefix express-api\" \"npm run start --prefix ember-app\"",
     "dev:svelte": "concurrently \"npm run dev --prefix express-api\" \"npm run dev --prefix ember-app\"",
+    "dev:vue": "concurrently \"npm run dev --prefix express-api\" \"npm run dev --prefix vue-app\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "concurrently \"npm i --prefix express-api\" \"npm i --prefix react-app\" \"npm i --prefix ember-app\" \"npm i --prefix svelte-app\""
+    "postinstall": "concurrently \"npm i --prefix express-api\" \"npm i --prefix react-app\" \"npm i --prefix ember-app\" \"npm i --prefix svelte-app\" \"npm i --prefix vue-app\""
   },
   "repository": {
     "type": "git",
