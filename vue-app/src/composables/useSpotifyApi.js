@@ -43,18 +43,18 @@ const useLoggedIn = () => {
     .catch(() => false);
 }
 
+const searchStatus = ref({
+  results: null,
+  error: false,
+  pending: false
+});
+
 const useSearch = terms => {
-  const searchStatus = ref({
-    data: null,
-    error: false,
-    pending: false
-  });
-  
   const doSearch = (searchTerms) => {
     if (!searchTerms) return;
   
     searchStatus.value = ({
-      data: null,
+      results: null,
       error: false,
       pending: true
     });
@@ -65,13 +65,13 @@ const useSearch = terms => {
       .then(response => response.json())
       
       .then(json => searchStatus.value = ({
-        data: json,
+        results: json,
         error: false,
         pending: false
       }))
       
       .catch(() => searchStatus.value = ({
-        data: null,
+        results: null,
         error: true,
         pending: false
       }));
