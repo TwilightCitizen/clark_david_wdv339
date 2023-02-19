@@ -9,7 +9,7 @@ Project Portfolio III
 
 // Library Imports
 
-import { ref, isRef, unref, watchEffect } from 'vue';
+import { ref, unref, watchEffect } from 'vue';
 
 // Definitions
 
@@ -34,7 +34,6 @@ const getHeaders = { Accept: 'application/json' };
 const searchUrl = terms =>
   `${API_URL}/search?q=${encodeURIComponent(terms)}`
 
-
 const useLoggedIn = () => {
   return fetch(statusUrl, {
     headers: getHeaders
@@ -45,44 +44,56 @@ const useLoggedIn = () => {
 }
 
 const useSearch = terms => {
-  const search = ref({
+  const searchStatus = ref({
     data: null,
     error: false,
     pending: false
   });
   
-  const doSearch = () => {
-    search.value = ({
+  const doSearch = (searchTerms) => {
+    if (!searchTerms) return;
+  
+    searchStatus.value = ({
       data: null,
       error: false,
       pending: true
     });
     
-    fetch(searchUrl(unref(terms), {
+    fetch(searchUrl(searchTerms, {
       headers: getHeaders
-    })
-      .then(response => response.json()))
+    }))
+      .then(response => response.json())
       
-      .then(json => search.value = ({
+      .then(json => searchStatus.value = ({
         data: json,
         error: false,
         pending: false
       }))
       
-      .catch(() => search.value = ({
+      .catch(() => searchStatus.value = ({
         data: null,
         error: true,
         pending: false
       }));
-  
-    if (isRef(terms)) {
-      watchEffect(doSearch)
-    } else {
-      doSearch();
-    }
-    
-    return { search };
   };
+  
+  const debouncedSearch = (() => {
+    let timer;
+    
+    return () => {
+      const searchTerms = unref(terms);
+      
+      if (timer) clearTimeout(timer);
+      
+      timer = setTimeout(() => {
+        doSearch(searchTerms);
+      }, 1000);
+    };
+  })();
+  
+  watchEffect(debouncedSearch);
+  
+  return { searchStatus };
 };
 
 // Exports
